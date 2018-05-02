@@ -1,0 +1,6 @@
+###############
+# CLion files #
+###############
+
+cmake-build-debug
+.idea
