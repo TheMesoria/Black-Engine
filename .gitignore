@@ -4,3 +4,9 @@
 
 cmake-build-debug
 .idea
+
+###################
+# Temporary files #
+###################
+
+main.cpp
