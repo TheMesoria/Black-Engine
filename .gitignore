@@ -10,3 +10,9 @@ cmake-build-debug
 ###################
 
 main.cpp
+
+################
+# Local builds #
+################
+
+bin
