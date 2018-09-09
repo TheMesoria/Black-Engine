@@ -1,6 +1,6 @@
 add_executable(Black-Engine main.cpp)
 
-add_dependencies(Black-Engine GTEST SFML)
+add_dependencies(Black-Engine SFML SPDLOG)
 
 target_link_libraries(Black-Engine
         gtest
