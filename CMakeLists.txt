@@ -1,38 +1,31 @@
-cmake_minimum_required(VERSION 3.9)
-set(CMAKE_CXX_STANDARD 17)
-include(ExternalProject)
+CMAKE_MINIMUM_REQUIRED( VERSION 3.9 )
+SET( CMAKE_CXX_STANDARD 17 )
+INCLUDE( ExternalProject )
 
-project(Black-Engine)
-enable_testing()
+PROJECT( Black-Engine )
+ENABLE_TESTING()
 
-set(ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors")
+SET( ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors" )
 
-set(GTEST_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/gtest)
-set(SFML_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/sfml)
-set(SPDLOG_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/spdlog)
+SET( SFML_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/sfml )
+SET( SPDLOG_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/spdlog )
 
+EXTERNALPROJECT_ADD( SFML
+					 GIT_REPOSITORY https://github.com/SFML/SFML
+					 CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${SFML_INSTALL_LOCATION}
+					 )
+EXTERNALPROJECT_ADD( SPDLOG
+					 GIT_REPOSITORY https://github.com/gabime/spdlog
+					 CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${SPDLOG_INSTALL_LOCATION}
+					 )
 
-ExternalProject_Add(GTEST
-        GIT_REPOSITORY https://github.com/google/googletest
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${GTEST_INSTALL_LOCATION}
-        )
-ExternalProject_Add(SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${SFML_INSTALL_LOCATION}
-        )
-ExternalProject_Add(SPDLOG
-        GIT_REPOSITORY https://github.com/gabime/spdlog
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${SPDLOG_INSTALL_LOCATION}
-        )
+INCLUDE_DIRECTORIES( ${SFML_INSTALL_LOCATION}/include )
+LINK_DIRECTORIES( ${SFML_INSTALL_LOCATION}/lib )
 
-include_directories(${GTEST_INSTALL_LOCATION}/include)
-link_directories(${GTEST_INSTALL_LOCATION}/lib)
+INCLUDE_DIRECTORIES( ${SPDLOG_INSTALL_LOCATION}/include )
+LINK_DIRECTORIES( ${SPDLOG_INSTALL_LOCATION}/lib )
 
-include_directories(${SFML_INSTALL_LOCATION}/include)
-link_directories(${SFML_INSTALL_LOCATION}/lib)
+ADD_SUBDIRECTORY( src )
 
-include_directories(${SPDLOG_INSTALL_LOCATION}/include)
-link_directories(${SPDLOG_INSTALL_LOCATION}/lib)
-
-add_subdirectory(src)
-add_subdirectory(test)
+ENABLE_TESTING()
+ADD_SUBDIRECTORY( tests )
