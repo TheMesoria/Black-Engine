@@ -1,9 +1,9 @@
-ADD_EXECUTABLE( Black-Engine
+ADD_EXECUTABLE( build
 				main.cpp )
 
-ADD_DEPENDENCIES( Black-Engine SFML SPDLOG )
+ADD_DEPENDENCIES( build SFML SPDLOG )
 
-TARGET_LINK_LIBRARIES( Black-Engine
+TARGET_LINK_LIBRARIES( build
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-audio.so
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-graphics.so
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-window.so

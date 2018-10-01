@@ -5,6 +5,11 @@ INCLUDE( ExternalProject )
 PROJECT( Black-Engine )
 ENABLE_TESTING()
 
+if (${BUILD_OFFLINE})
+	set_property(DIRECTORY ${myrootproject_SOURCE_DIR}
+				 PROPERTY EP_UPDATE_DISCONNECTED 1)
+endif()
+
 SET( ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors" )
 
 SET( SFML_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/sfml )
@@ -29,3 +34,4 @@ ADD_SUBDIRECTORY( src )
 
 ENABLE_TESTING()
 ADD_SUBDIRECTORY( tests )
+

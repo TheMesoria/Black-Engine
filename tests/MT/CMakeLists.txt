@@ -1,8 +1,8 @@
-ADD_EXECUTABLE( MT
+ADD_EXECUTABLE( mt
 				ModuleTests.cpp )
-ADD_DEPENDENCIES( Black-Engine GTEST SFML SPDLOG )
+ADD_DEPENDENCIES( mt GTEST SFML SPDLOG )
 
-TARGET_LINK_LIBRARIES( MT
+TARGET_LINK_LIBRARIES( mt
 					   gtest
 					   gtest_main
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-audio.so
@@ -11,3 +11,5 @@ TARGET_LINK_LIBRARIES( MT
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-system.so
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-network.so
 					   pthread )
+
+ADD_TEST( MT mt )
