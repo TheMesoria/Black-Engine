@@ -28,7 +28,7 @@ This will allow you to quickly secure all necessary
 
 ## Preparation
 ### Aptitude platform ( Debian, Ubuntu, Mint )
-Run `NecessaryInstallation.readme`.<br/>
+Run `NecessaryInstallation.sh`.<br/>
 ( Highly advised to inspect the file, because I do not take any responsibility for damage done. )
 
 ### Other

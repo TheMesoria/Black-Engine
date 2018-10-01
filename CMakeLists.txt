@@ -5,10 +5,12 @@ INCLUDE( ExternalProject )
 PROJECT( Black-Engine )
 ENABLE_TESTING()
 
-if (${BUILD_OFFLINE})
-	set_property(DIRECTORY ${myrootproject_SOURCE_DIR}
-				 PROPERTY EP_UPDATE_DISCONNECTED 1)
-endif()
+INCLUDE_DIRECTORIES( includes )
+
+IF( ${BUILD_OFFLINE} )
+	SET_PROPERTY( DIRECTORY ${myrootproject_SOURCE_DIR}
+				  PROPERTY EP_UPDATE_DISCONNECTED 1 )
+ENDIF()
 
 SET( ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors" )
 
