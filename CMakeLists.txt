@@ -5,7 +5,7 @@ INCLUDE( ExternalProject )
 PROJECT( Black-Engine )
 ENABLE_TESTING()
 
-INCLUDE_DIRECTORIES( includes )
+INCLUDE_DIRECTORIES( include )
 
 IF( ${BUILD_OFFLINE} )
 	SET_PROPERTY( DIRECTORY ${myrootproject_SOURCE_DIR}

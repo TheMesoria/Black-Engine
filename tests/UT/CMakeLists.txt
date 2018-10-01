@@ -1,6 +1,5 @@
 ADD_EXECUTABLE( ut
-				UnitTests.cpp
-				tests/SUCESSTests.cpp )
+				UnitTests.cpp )
 ADD_DEPENDENCIES( ut GTEST SFML SPDLOG )
 
 TARGET_LINK_LIBRARIES( ut

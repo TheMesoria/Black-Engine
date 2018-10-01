@@ -1,5 +1,7 @@
 ADD_EXECUTABLE( build
-				main.cpp model/GameObject.cpp ../includes/GameObject.hpp )
+				main.cpp
+				model/GameObject.cpp
+				)
 
 ADD_DEPENDENCIES( build SFML SPDLOG )
 
