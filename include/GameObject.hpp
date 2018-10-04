@@ -8,6 +8,12 @@
 
 class GameObject
 {
+private:
+	const long unsigned id_;
+public:
+	GameObject() = default;
+	~GameObject() = default;
 
+	long unsigned getId() { return id_; }
 };
 
