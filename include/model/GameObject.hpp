@@ -23,5 +23,3 @@ public:
 
 	long unsigned getId() { return id_; }
 };
-
-unsigned long long GameObject::activeId_ = 0;

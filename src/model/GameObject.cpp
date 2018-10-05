@@ -12,3 +12,5 @@ GameObject::GameObject()
 
 GameObject::GameObject( unsigned long long id )
 		: id_( id ) {}
+
+unsigned long long GameObject::activeId_ = 0;
