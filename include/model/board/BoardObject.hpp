@@ -8,10 +8,13 @@
 
 #include <model/GameObject.hpp>
 
+namespace Model
+{
 class BoardObject
 		: public GameObject
 {
 protected:
 
 };
+}
 

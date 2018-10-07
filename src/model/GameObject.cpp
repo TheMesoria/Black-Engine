@@ -4,13 +4,14 @@
 //
 
 #include <model/GameObject.hpp>
+#include <global/Generators.hpp>
 
 #include "model/GameObject.hpp"
 
-GameObject::GameObject()
-		: id_( activeId_++ ) {}
+namespace Model
+{
+	GameObject::GameObject()
+			: id_( idGenerator()) {}
+}
 
-GameObject::GameObject( unsigned long long id )
-		: id_( id ) {}
-
-unsigned long long GameObject::activeId_ = 0;
+std::function<std::string()> Model::GameObject::idGenerator = [](){ return Global::Default::Functions::GenerateId(); };

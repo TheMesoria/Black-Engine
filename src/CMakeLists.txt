@@ -3,7 +3,7 @@ ADD_EXECUTABLE( build
 				model/GameObject.cpp
 				model/board/BoardObject.cpp
 
-				)
+				../include/global/Generators.hpp implementation.cpp implementation/Generators.cpp )
 
 ADD_DEPENDENCIES( build SFML SPDLOG )
 

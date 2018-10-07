@@ -1,5 +1,6 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
+#include <global/Generators.hpp>
 
 int main(int argc, char** args)
 {
@@ -11,7 +12,7 @@ int main(int argc, char** args)
     }
     std::cout << "Hello World" << std::endl;
 
-    std::cout << ULONG_LONG_MAX << std::endl;
+    std::cout << Global::Default::Functions::GenerateId() << std::endl;
 
 	return EXIT_SUCCESS;
 }
