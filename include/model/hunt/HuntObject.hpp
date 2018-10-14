@@ -6,12 +6,12 @@
 #pragma once
 
 
-#include <model/GameObject.hpp>
+#include <model/Object.hpp>
 
 namespace Model
 {
 class BoardObject
-		: public GameObject
+		: public Object
 {
 protected:
 

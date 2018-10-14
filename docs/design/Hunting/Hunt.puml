@@ -1,0 +1,11 @@
+@startuml
+
+actor User
+
+User -> Huntsman : Start
+
+loop Create all requested Houndmasters
+    Huntsman -> Houndmaster : Prepare
+end
+
+@enduml

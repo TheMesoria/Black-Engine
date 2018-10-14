@@ -3,4 +3,4 @@
 // Copyright (c) 2018 Industry of Black. All rights reserved.
 //
 
-#include "model/board/BoardObject.hpp"
+#include "model/hunt/HuntObject.hpp"

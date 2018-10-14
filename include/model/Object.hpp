@@ -9,7 +9,7 @@
 
 namespace Model
 {
-class GameObject
+class Object
 {
 private:
 	static std::function<std::string()> idGenerator;
@@ -17,10 +17,10 @@ private:
 	std::string id_;
 
 protected:
-	GameObject();
+	Object();
 
 public:
-	virtual ~GameObject() = default;
+	virtual ~Object() = default;
 
 	std::string getId() { return id_; }
 };

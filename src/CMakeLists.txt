@@ -1,9 +1,9 @@
 ADD_EXECUTABLE( build
 				main.cpp
-				model/GameObject.cpp
-				model/board/BoardObject.cpp
-
-				../include/global/Generators.hpp implementation/Generators.cpp )
+				model/Object.cpp
+				model/hunt/HuntObject.cpp
+				implementation/Generators.cpp
+				)
 
 ADD_DEPENDENCIES( build SFML SPDLOG )
 
