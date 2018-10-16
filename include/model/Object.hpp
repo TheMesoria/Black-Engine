@@ -9,19 +9,18 @@
 
 namespace Model
 {
-class Object
-{
-private:
-	static std::function<std::string()> idGenerator;
+	class Object
+	{
+	private:
+		static std::function<std::string()> idGenerator;
 
-	std::string id_;
+		std::string id_;
+	protected:
+		Object();
 
-protected:
-	Object();
+	public:
+		virtual ~Object() = default;
 
-public:
-	virtual ~Object() = default;
-
-	std::string getId() { return id_; }
-};
+		std::string getId() { return id_; }
+	};
 }

@@ -10,7 +10,7 @@
 
 namespace Model
 {
-class BoardObject
+class HuntObject
 		: public Object
 {
 protected:
