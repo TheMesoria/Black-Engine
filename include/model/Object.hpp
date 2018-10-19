@@ -13,25 +13,16 @@ namespace Model
 	{
 	private:
 		static std::function<std::string()> idGenerator;
-		// ====================================================================
-		//								FIELDS
-		// ====================================================================
+
 		std::string id_;
 
 	protected:
 		Object();
 		virtual ~Object() = default;
 
-		virtual std::string getName();
+		virtual std::string getClassName() {}
 	public:
-		// ====================================================================
-		//  						PUBLIC FUNCTIONS
-		// ====================================================================
 		void log();
-
-		// ====================================================================
-		//								ACCESS
-		// ====================================================================
 		std::string getId() { return id_; }
 	};
 }
