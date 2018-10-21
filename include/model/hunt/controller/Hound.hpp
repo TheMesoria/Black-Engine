@@ -4,8 +4,7 @@
 
 #include "model/hunt/HuntObject.hpp"
 
-#ifndef BLACK_ENGINE_HOUND_HPP
-#define BLACK_ENGINE_HOUND_HPP
+#pragma once
 
 namespace Model
 {
@@ -15,6 +14,3 @@ namespace Model
 
 	};
 }
-
-
-#endif //BLACK_ENGINE_HOUND_HPP
