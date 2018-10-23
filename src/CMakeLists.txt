@@ -5,7 +5,7 @@ ADD_EXECUTABLE( build
 				implementation/Generators.cpp
 				model/hunt/controller/Hound.cpp
 				../include/model/hunt/controller/Hound.hpp
-				)
+				model/hunt/controller/Houndmaster.cpp ../include/model/hunt/controller/Houndmaster.hpp engine/Huntsman.cpp ../include/engine/Huntsman.hpp )
 
 ADD_DEPENDENCIES( build SFML SPDLOG )
 

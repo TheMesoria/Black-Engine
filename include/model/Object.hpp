@@ -4,10 +4,11 @@
 //
 
 #include <functional>
+#include <spdlog/spdlog.h>
 
 #pragma once
 
-namespace Model
+namespace huntsman::model
 {
 	class Object
 	{
@@ -16,13 +17,14 @@ namespace Model
 
 		std::string id_;
 
+		std::shared_ptr<spdlog::logger> logger_;
 	protected:
 		Object();
 		virtual ~Object() = default;
 
 		virtual std::string getClassName() {}
 	public:
-		void log();
+		void log(std::string const& message, spdlog::level::level_enum level);
 		std::string getId() { return id_; }
 	};
 }

@@ -6,11 +6,13 @@
 
 #pragma once
 
-namespace Model
+namespace huntsman::model
 {
 	class Hound
 			: public HuntObject
 	{
 
+	public:
+		Hound() = default;
 	};
 }

@@ -8,10 +8,21 @@
 
 #include "model/Object.hpp"
 
-namespace Model
+namespace huntsman::model
 {
-	Object::Object()
-			: id_( idGenerator()) {}
-}
+	std::function<std::string()> Object::idGenerator = []() { return Global::Default::Functions::GenerateId(); };
 
-std::function<std::string()> Model::Object::idGenerator = [](){ return Global::Default::Functions::GenerateId(); };
+	Object::Object()
+			: id_( idGenerator())
+			  , logger_( spdlog::get( "main" )) {}
+
+	void Object::log( std::string const &message, spdlog::level::level_enum level )
+	{
+		std::string parseMessage = "[" + id_ + "]" + message;
+		logger_->log(
+				level,
+				parseMessage
+		);
+	}
+
+}

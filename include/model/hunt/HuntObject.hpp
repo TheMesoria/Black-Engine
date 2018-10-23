@@ -8,7 +8,7 @@
 
 #include <model/Object.hpp>
 
-namespace Model
+namespace huntsman::model
 {
 class HuntObject
 		: public Object
