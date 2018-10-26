@@ -3,6 +3,7 @@
 #include <global/Generators.hpp>
 #include <SFML/Graphics.hpp>
 #include <cxxabi.h>
+#include <engine/Huntsman.hpp>
 
 int main(int argc, char** args)
 {
@@ -12,9 +13,11 @@ int main(int argc, char** args)
 	{
 		std::cout << i << ") " << std::string(args[i]) << std::endl;
 	}
-	std::cout << "Hello World" << std::endl;
 
 	std::cout << Global::Default::Functions::GenerateId() << std::endl;
+
+	huntsman::Huntsman huntsman1;
+
 
 	return EXIT_SUCCESS;
 }

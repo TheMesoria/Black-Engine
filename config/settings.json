@@ -1,0 +1,13 @@
+{
+  "initSettings" : {
+    "sink" : {
+      "std::sink" : "work"
+    }
+  },
+  "windowSettings" : {
+    "size" : {
+      "wdth" : 680,
+      "hght" : 400
+    }
+  }
+}
