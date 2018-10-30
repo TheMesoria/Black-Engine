@@ -23,7 +23,7 @@ namespace huntsman
 	{
 //		logger_ = spdlog::create( "main",
 //								  {
-////			spdlog::sinks::
+//			spdlog::sinks::
 //								  } );
 	}
 
@@ -33,13 +33,15 @@ namespace huntsman
 		{
 			auto settings = huntsman::utility::settings::load( configFilePath );
 
-//			settings.get();
+			huntsman::utility::settings::getSink<spdlog::sinks::stderr_sink_mt>(spdlog::level::info);
 
-			std::cout << "Your value is: " << settings.get<std::string>() << std::endl;
+
+
+			std::cout << "Your value is: " << settings[ "initSettings" ][ "sink" ][ "std::sink" ].get<std::string>()
+					  << std::endl;
 		}
 		catch( nlohmann::detail::type_error const &e )
 		{
-			std::cerr << "Cannot initialise logger." << std::endl;
 			std::cerr << "Could not load settings from file," << std::endl;
 			std::cerr << "Path: " + configFilePath + "." << std::endl;
 			std::cerr << "Are you sure everything is alright?" << std::endl;
