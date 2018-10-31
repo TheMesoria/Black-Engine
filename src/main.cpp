@@ -5,18 +5,19 @@
 #include <cxxabi.h>
 #include <engine/Huntsman.hpp>
 
-int main(int argc, char** args)
+int main( int argc, char** args )
 {
 	std::cout << "Argc: " << argc << std::endl;
 	std::cout << "Starting args are: " << std::endl;
-	for ( auto i = 0; i < argc; i++ )
+	for( auto i = 0; i < argc; i++ )
 	{
-		std::cout << i << ") " << std::string(args[i]) << std::endl;
+		std::cout << i << ") " << std::string( args[ i ] ) << std::endl;
 	}
 
 	std::cout << Global::Default::Functions::GenerateId() << std::endl;
 
 	huntsman::Huntsman huntsman1;
+	huntsman1.start();
 
 
 	return EXIT_SUCCESS;

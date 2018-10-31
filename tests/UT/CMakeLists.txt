@@ -1,5 +1,10 @@
 ADD_EXECUTABLE( ut
-				UnitTests.cpp )
+				UnitTests.cpp
+				engine/utility/StartupManagerTests.cpp
+				mocks/SettingsMock.hpp )
+
+INCLUDE_DIRECTORIES( mocks )
+
 ADD_DEPENDENCIES( ut GTEST SFML SPDLOG )
 
 TARGET_LINK_LIBRARIES( ut

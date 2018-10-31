@@ -10,21 +10,24 @@
 #include <spdlog/logger.h>
 #include <nlohmann/json.hpp>
 
+#include "utility/Settings.hpp"
+
 namespace huntsman
 {
 	using json = nlohmann::json;
+	using Settings = huntsman::utility::Settings;
 
 	class Huntsman
 	{
 		std::shared_ptr<spdlog::logger> logger_;
+		std::unique_ptr<Settings> settings_;
 	public:
-		Huntsman();
+		Huntsman() = default;
 
-		void start(){};
+		void start();
 
 	private:
-		bool loadConfigFromFile(std::string const& configFilePath);
-		bool initialiseLogger();
+		void loadConfig();
 	};
 }
 

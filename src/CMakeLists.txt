@@ -2,10 +2,11 @@ ADD_EXECUTABLE( build
 				main.cpp
 				model/Object.cpp
 				model/hunt/HuntObject.cpp
-				implementation/Generators.cpp
 				model/hunt/controller/Hound.cpp
-				../include/model/hunt/controller/Hound.hpp
-				model/hunt/controller/Houndmaster.cpp ../include/model/hunt/controller/Houndmaster.hpp engine/Huntsman.cpp ../include/engine/Huntsman.hpp engine/utility/Settings.cpp ../include/engine/utility/Settings.hpp )
+				model/hunt/controller/Houndmaster.cpp
+				implementation/Generators.cpp
+				engine/Huntsman.cpp
+				engine/utility/Settings.cpp ../include/engine/utility/Settings.hpp ../include/engine/utility/LoggerHelper.hpp engine/utility/StartupManager.cpp ../include/engine/utility/StartupManager.hpp )
 
 ADD_DEPENDENCIES( build SFML SPDLOG JSON )
 
