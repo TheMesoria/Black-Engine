@@ -1,7 +1,8 @@
 ADD_EXECUTABLE( ut
 				UnitTests.cpp
 				engine/utility/StartupManagerTests.cpp
-				mocks/SettingsMock.hpp )
+				mocks/SettingsMock.hpp
+				mocks/HuntsmanMock.hpp )
 
 INCLUDE_DIRECTORIES( mocks )
 

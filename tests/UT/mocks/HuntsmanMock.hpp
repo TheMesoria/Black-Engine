@@ -11,5 +11,6 @@
 class HuntsmanMock
 		: public huntsman::Huntsman
 {
+public:
 	MOCK_METHOD0( start, void( void ) );
 };

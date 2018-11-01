@@ -10,9 +10,9 @@
 #include <SettingsMock.hpp>
 
 class StartupManagerShould
-		: protected ::testing::Test
+		: public ::testing::Test
 {
-protected:
+public:
 	StartupManagerShould() :
 			sut_( huntsman_, settings_ ) { }
 

@@ -11,5 +11,5 @@
 class SettingsMock
 		: public huntsman::utility::Settings
 {
-	MOCK_METHOD0(  );
+//	MOCK_METHOD0(  );
 };
