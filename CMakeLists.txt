@@ -19,6 +19,8 @@ ENDIF( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 
 SET( ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors" )
 
+configure_file(config/settings.json src/config/settings.json COPYONLY)
+
 SET( SFML_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/sfml )
 SET( SPDLOG_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/spdlog )
 SET( JSON_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/json )

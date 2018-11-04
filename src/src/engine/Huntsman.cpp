@@ -54,7 +54,7 @@ namespace huntsman
 
 	void Huntsman::loadConfig()
 	{
-		settings_ = std::make_unique<Settings>( "settings.json" );
+		settings_ = std::make_unique<Settings>( "config/settings.json" );
 		StartupManager startupManager(*this, *settings_);
 
 		if(startupManager.initialiseHuntsman())
