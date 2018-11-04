@@ -25,5 +25,4 @@ public:
 TEST_F( StartupManagerShould, LoadCorrectlyLogger )
 {
 
-
 }
