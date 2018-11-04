@@ -1,9 +1,17 @@
 ADD_EXECUTABLE( ut
-				UnitTests.cpp )
+				UnitTests.cpp
+				engine/utility/StartupManagerTests.cpp
+				mocks/SettingsMock.hpp
+				mocks/HuntsmanMock.hpp )
+
+INCLUDE_DIRECTORIES( mocks )
+
 ADD_DEPENDENCIES( ut GTEST SFML SPDLOG )
 
 TARGET_LINK_LIBRARIES( ut
+					   BLACK-HUNTSMAN
 					   gtest
+					   gmock
 					   gtest_main
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-audio.so
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-graphics.so

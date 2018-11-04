@@ -31,6 +31,12 @@ namespace Global::Default::Functions
 {
 	std::string GenerateId( uint8_t size, uint8_t partialSize )
 	{
-		return GeneratePartialId(partialSize);
+		std::string returnId = "";
+		for(auto i = 0u; i < size; i++)
+		{
+			returnId+=GeneratePartialId(partialSize)+"-";
+		}
+		returnId.pop_back();
+		return returnId;
 	}
 }
