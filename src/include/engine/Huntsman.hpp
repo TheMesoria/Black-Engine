@@ -9,6 +9,7 @@
 
 #include <spdlog/logger.h>
 #include <nlohmann/json.hpp>
+#include <global/CmakeVariables.hpp>
 
 #include "utility/Settings.hpp"
 
@@ -26,9 +27,10 @@ namespace huntsman
 		Huntsman() = default;
 
 		void start();
+		void start( std::string const& configPath );
 
 	private:
-		void loadConfig();
+		void loadConfig( std::string const& configPath );
 
 		friend class StartupManager;
 	};

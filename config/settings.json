@@ -5,25 +5,25 @@
 				"name"  : "DebugLogSink",
 				"type"  : "ansicolor-stdout-sink",
 				"path"  : "",
-				"level" : "dbg"
+				"level" : "debug"
 			},
 			{
 				"name"  : "ErrorLogSink",
 				"type"  : "simple-file-sink-mt",
-				"path"  : "logs/Error.log",
+				"path"  : "@CMAKE_CURRENT_BINARY_DIR@/logs/Error.log",
 				"level" : "error"
 			},
 			{
 				"name"  : "InfoLogSink",
 				"type"  : "simple-file-sink-mt",
-				"path"  : "logs/Run.log",
+				"path"  : "@CMAKE_CURRENT_BINARY_DIR@/logs/Run.log",
 				"level" : "info"
 			},
 			{
 				"name"  : "DebugLogSink",
 				"type"  : "simple-file-sink-mt",
-				"path"  : "logs/Debug.log",
-				"level" : "dbg"
+				"path"  : "@CMAKE_CURRENT_BINARY_DIR@/logs/Debug.log",
+				"level" : "debug"
 			}
 		],
 		"flush-on" : "dbg"

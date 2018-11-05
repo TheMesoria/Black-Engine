@@ -23,9 +23,18 @@ namespace huntsman
 
 	bool StartupManager::initialiseLogger()
 	{
-		auto sinks = settings_.getSinks();
 
-		logger_ = std::make_shared<spdlog::logger>( "main", sinks.begin(), sinks.end() );
+		if( spdlog::get( "main" ) )
+		{
+			logger_ = spdlog::get( "main" );
+			logger_->info("KURWA SEGFAULT");
+		}
+		else
+		{
+			auto sinks = settings_.getSinks();
+			logger_ = std::make_shared<spdlog::logger>( "main", sinks.begin(), sinks.end() );
+			spdlog::register_logger( logger_ );
+		}
 
 		logger_->flush_on( settings_.getFlushOnLevel() );
 		logger_->info( "============================================================" );
@@ -34,7 +43,6 @@ namespace huntsman
 		logger_->flush();
 
 		huntsman_.logger_ = logger_;
-		spdlog::register_logger( logger_ );
 
 
 		return logger_ ? true : false;

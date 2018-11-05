@@ -1,8 +1,12 @@
 ADD_EXECUTABLE( mt
-				ModuleTests.cpp startup/StartupTest.cpp )
+				ModuleTests.cpp
+				startup/StartupTest.cpp
+				manual/HuntsmanTests.cpp
+				../COMMON/TestBase.hpp )
 ADD_DEPENDENCIES( mt GTEST SFML SPDLOG )
 
 TARGET_LINK_LIBRARIES( mt
+					   BLACK-HUNTSMAN
 					   gtest
 					   gtest_main
 					   ${SFML_INSTALL_LOCATION}/lib/libsfml-audio.so
