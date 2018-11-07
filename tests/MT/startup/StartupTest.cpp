@@ -15,5 +15,4 @@ public:
 
 TEST_F( OnStartupShould, exist )
 {
-//	spdlog::get("main")->info("start");
 }

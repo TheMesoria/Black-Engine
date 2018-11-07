@@ -1,7 +1,6 @@
 ADD_EXECUTABLE( mt
 				ModuleTests.cpp
 				startup/StartupTest.cpp
-				manual/HuntsmanTests.cpp
 				../COMMON/TestBase.hpp )
 ADD_DEPENDENCIES( mt GTEST SFML SPDLOG )
 
