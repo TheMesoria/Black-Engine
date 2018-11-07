@@ -39,7 +39,10 @@ namespace huntsman
 	spdlog::sink_ptr LoggerHelper::getSink( level_enum logLevel )
 	{
 		auto sink = std::make_shared<SinkType>();
-		sink->set_level( logLevel );
+
+		if( logLevel != level_enum::debug )
+			sink->set_level( logLevel );
+
 		return sink;
 	}
 
@@ -47,7 +50,7 @@ namespace huntsman
 	spdlog::sink_ptr LoggerHelper::getFileSink( std::string const& filePath, level_enum logLevel )
 	{
 		auto sink = std::make_shared<SinkType>( filePath );
-		sink->set_level( logLevel );
+		if( logLevel != level_enum::debug ) sink->set_level( logLevel );
 		return sink;
 	}
 

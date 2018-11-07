@@ -10,6 +10,7 @@ cmake-build-debug
 ###################
 
 main.cpp
+HuntsmanTests.cpp
 
 ################
 # Local builds #
