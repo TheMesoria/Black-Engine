@@ -1,0 +1,3 @@
+ADD_EXECUTABLE( runnable main.cpp )
+
+TARGET_LINK_LIBRARIES( runnable BLACK-HUNTSMAN )

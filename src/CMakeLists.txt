@@ -8,6 +8,7 @@ ADD_LIBRARY( BLACK-HUNTSMAN
 			 src/engine/utility/Settings.cpp
 			 src/engine/utility/StartupManager.cpp
 			 include/engine/utility/LoggerHelper.hpp
-			 ../config/CmakeVariables.h.in )
+			 ../config/CmakeVariables.h.in
+			 )
 
 ADD_DEPENDENCIES( BLACK-HUNTSMAN SFML SPDLOG JSON )
