@@ -9,8 +9,7 @@ cmake-build-debug
 # Temporary files #
 ###################
 
-main.cpp
-HuntsmanTests.cpp
+CmakeVariables.hpp
 
 ################
 # Local builds #
