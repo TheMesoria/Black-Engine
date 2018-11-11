@@ -25,6 +25,7 @@ namespace huntsman
 		std::unique_ptr<Settings> settings_;
 	public:
 		Huntsman() = default;
+		~Huntsman() = default;
 
 		void start();
 		void start( std::string const& configPath );
@@ -36,3 +37,4 @@ namespace huntsman
 	};
 }
 
+using Huntsman = huntsman::Huntsman;

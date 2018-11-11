@@ -5,7 +5,7 @@ INCLUDE( ExternalProject )
 PROJECT( Black-Engine )
 ENABLE_TESTING()
 
-INCLUDE_DIRECTORIES( src/include )
+INCLUDE_DIRECTORIES( huntsman/include )
 
 IF( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	MESSAGE( "-- 64 bit compiler detected" )
@@ -20,7 +20,7 @@ ENDIF( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 SET( ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors" )
 
 CONFIGURE_FILE( config/settings.json config/settings.json )
-CONFIGURE_FILE( config/CmakeVariables.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/include/global/CmakeVariables.hpp )
+CONFIGURE_FILE( config/CmakeVariables.h.in ${CMAKE_CURRENT_SOURCE_DIR}/huntsman/include/global/CmakeVariables.hpp )
 FILE(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/logs)
 
 SET( SFML_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/sfml )
@@ -55,7 +55,7 @@ LINK_DIRECTORIES( ${SPDLOG_INSTALL_LOCATION}/lib )
 INCLUDE_DIRECTORIES( ${JSON_INSTALL_LOCATION}/include )
 LINK_DIRECTORIES( ${JSON_INSTALL_LOCATION}/lib )
 
-ADD_SUBDIRECTORY( src )
+ADD_SUBDIRECTORY( huntsman )
 ADD_SUBDIRECTORY( runnable )
 
 ENABLE_TESTING()

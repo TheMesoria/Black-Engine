@@ -23,9 +23,9 @@ namespace huntsman
 	void Huntsman::loadConfig( std::string const& configPath )
 	{
 		settings_ = std::make_unique<Settings>( configPath );
-		StartupManager startupManager(*this, *settings_);
+		StartupManager startupManager( *this, *settings_ );
 
-		if(startupManager.initialiseHuntsman())
+		if( startupManager.initialiseHuntsman() )
 		{
 			std::cerr << "Initialisation Failed!" << std::endl;
 		}

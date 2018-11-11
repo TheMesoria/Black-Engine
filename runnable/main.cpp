@@ -9,6 +9,6 @@
 
 int main( int argc, char** args )
 {
-	huntsman::Huntsman huntsman;
+	Huntsman huntsman;
 	huntsman.start();
 }
