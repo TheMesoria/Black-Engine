@@ -6,12 +6,10 @@
 #include <iostream>
 #include <fstream>
 
-#include <experimental/filesystem>
-
-#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 
-
+#include <Logger.hpp>
+#include <CMakeVariables.hpp>
 #include <engine/utility/Settings.hpp>
 #include <engine/Huntsman.hpp>
 #include <engine/utility/StartupManager.hpp>
@@ -29,6 +27,8 @@ namespace huntsman
 		{
 			std::cerr << "Initialisation Failed!" << std::endl;
 		}
+
+		LOG_INFO(logger_,"Initialised successfully.");
 	}
 
 	void Huntsman::start( std::string const& configPath )

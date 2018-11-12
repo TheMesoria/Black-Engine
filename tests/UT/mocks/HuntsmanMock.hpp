@@ -9,7 +9,7 @@
 #include <engine/Huntsman.hpp>
 
 class HuntsmanMock
-		: public huntsman::Huntsman
+		: public hsn::Huntsman
 {
 public:
 	MOCK_METHOD0( start, void( void ) );

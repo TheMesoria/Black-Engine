@@ -5,11 +5,25 @@
 #pragma once
 
 
+#include <vector>
+#include <engine/utility/Settings.hpp>
+#include <engine/view/components/HuntingGroundChunk.hpp>
+
 namespace huntsman
 {
+	using Grid = std::vector<std::vector<HuntingGroundChunk>>;
+	using Size = size_t;
+
 	class HuntingGround
 	{
+		Size gridSize_;
+		Size gridChunkSize_;
+		Grid grid_;
+
+	public:
+		HuntingGround(Settings settings);
 
 	};
 }
 
+using HuntingGround = huntsman::HuntingGround;

@@ -6,6 +6,7 @@
 
 
 #include <engine/Huntsman.hpp>
+#include <global/Macros.hpp>
 
 int main( int argc, char** args )
 {

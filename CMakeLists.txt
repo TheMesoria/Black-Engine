@@ -20,7 +20,7 @@ ENDIF( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 SET( ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors" )
 
 CONFIGURE_FILE( config/settings.json config/settings.json )
-CONFIGURE_FILE( config/CmakeVariables.h.in ${CMAKE_CURRENT_SOURCE_DIR}/huntsman/include/global/CmakeVariables.hpp )
+CONFIGURE_FILE( config/CmakeVariables.h.in ${CMAKE_CURRENT_SOURCE_DIR}/huntsman/include/global/CMakeVariables.hpp )
 FILE(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/logs)
 
 SET( SFML_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/sfml )

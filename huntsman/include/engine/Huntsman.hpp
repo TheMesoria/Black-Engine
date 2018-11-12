@@ -7,21 +7,18 @@
 
 #include <memory>
 
-#include <spdlog/logger.h>
 #include <nlohmann/json.hpp>
-#include <global/CmakeVariables.hpp>
 
 #include "utility/Settings.hpp"
 
 namespace huntsman
 {
 	using json = nlohmann::json;
-	using Settings = huntsman::utility::Settings;
 	using LoggerPtr = std::shared_ptr<spdlog::logger>;
 
 	class Huntsman
 	{
-		std::shared_ptr<spdlog::logger> logger_;
+		LoggerPtr logger_;
 		std::unique_ptr<Settings> settings_;
 	public:
 		Huntsman() = default;
@@ -37,4 +34,5 @@ namespace huntsman
 	};
 }
 
-using Huntsman = huntsman::Huntsman;
+namespace hsn =  huntsman;
+using Huntsman = hsn::Huntsman;

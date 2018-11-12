@@ -9,7 +9,7 @@ cmake-build-debug
 # Temporary files #
 ###################
 
-CmakeVariables.hpp
+CMakeVariables.hpp
 
 ################
 # Local builds #

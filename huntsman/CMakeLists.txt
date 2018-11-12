@@ -1,14 +1,22 @@
+INCLUDE_DIRECTORIES(include/global)
+
 ADD_LIBRARY( BLACK-HUNTSMAN
 			 src/model/Object.cpp
 			 src/model/hunt/HuntObject.cpp
 			 src/model/hunt/controller/Hound.cpp
 			 src/model/hunt/controller/Houndmaster.cpp
-			 src/implementation/Generators.cpp
+			 src/global/Generators.cpp
 			 src/engine/Huntsman.cpp
 			 src/engine/utility/Settings.cpp
 			 src/engine/utility/StartupManager.cpp
 			 include/engine/utility/LoggerHelper.hpp
-			 ../config/CmakeVariables.h.in
-			 src/engine/view/HuntingGround.cpp include/engine/view/HuntingGround.hpp )
+			 src/engine/view/HuntingGround.cpp
+			 include/engine/view/HuntingGround.hpp
+			 src/engine/view/components/HuntingGroundChunk.cpp
+			 include/engine/view/components/HuntingGroundChunk.hpp
+			 include/global/Macros.hpp
+			 src/global/Macros.cpp
+			 include/global/Logger.hpp
+			 )
 
 ADD_DEPENDENCIES( BLACK-HUNTSMAN SFML SPDLOG JSON )

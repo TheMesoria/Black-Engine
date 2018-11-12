@@ -28,3 +28,5 @@ namespace huntsman::utility
 	};
 }
 
+using Settings = huntsman::utility::Settings;
+
