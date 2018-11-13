@@ -6,3 +6,5 @@
 
 #include <spdlog/spdlog.h>
 #include <global/Macros.hpp>
+
+using LoggerPtr = std::shared_ptr<spdlog::logger>;

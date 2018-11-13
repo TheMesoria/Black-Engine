@@ -14,19 +14,21 @@ namespace huntsman::utility
 {
 	using nlohmann::json;
 
-	class Settings
+	class SettingsFacade
 	{
 	public:
-		Settings() = default;
-		explicit Settings( std::string const& settingsFilePath );
+		SettingsFacade() = default;
+		explicit SettingsFacade( std::string const& settingsFilePath );
 
 		std::vector<spdlog::sink_ptr> getSinks() const;
-		std::pair<int, int> getWindowSize() const;
+		std::pair<size_t, size_t> getWindowSize() const;
 		spdlog::level::level_enum getFlushOnLevel() const;
+		size_t getHuntingGroundChunkSize() const;
+		std::pair<size_t, size_t> getHuntingGroundSize() const;
 	private:
 		json activeConfigFile_;
 	};
 }
 
-using Settings = huntsman::utility::Settings;
+using Settings = huntsman::utility::SettingsFacade;
 

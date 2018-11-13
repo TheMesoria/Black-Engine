@@ -1,5 +1,3 @@
-INCLUDE_DIRECTORIES(include/global)
-
 ADD_LIBRARY( BLACK-HUNTSMAN
 			 src/model/Object.cpp
 			 src/model/hunt/HuntObject.cpp
@@ -7,7 +5,7 @@ ADD_LIBRARY( BLACK-HUNTSMAN
 			 src/model/hunt/controller/Houndmaster.cpp
 			 src/global/Generators.cpp
 			 src/engine/Huntsman.cpp
-			 src/engine/utility/Settings.cpp
+			 src/engine/utility/SettingsFacade.cpp
 			 src/engine/utility/StartupManager.cpp
 			 include/engine/utility/LoggerHelper.hpp
 			 src/engine/view/HuntingGround.cpp

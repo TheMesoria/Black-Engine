@@ -6,22 +6,30 @@
 
 
 #include <vector>
-#include <engine/utility/Settings.hpp>
+
+#include <Logger.hpp>
+#include <engine/utility/SettingsFacade.hpp>
 #include <engine/view/components/HuntingGroundChunk.hpp>
 
 namespace huntsman
 {
-	using Grid = std::vector<std::vector<HuntingGroundChunk>>;
-	using Size = size_t;
+	using Grid            = std::vector<std::vector<HuntingGroundChunk>>;
+	using Size            = size_t;
+	using GridSize        = std::pair<Size, Size>;
 
 	class HuntingGround
 	{
-		Size gridSize_;
-		Size gridChunkSize_;
-		Grid grid_;
+		Size     gridChunkSize_;
+		GridSize gridSize_;
+		Grid     grid_;
+
+		LoggerPtr logger_;
 
 	public:
-		HuntingGround(Settings settings);
+		HuntingGround() = delete;
+		HuntingGround( HuntingGround& ) = default;
+		HuntingGround( Settings const& settings );
+		HuntingGround& operator=( HuntingGround const& ) = default;
 
 	};
 }

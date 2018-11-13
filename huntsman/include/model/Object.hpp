@@ -22,7 +22,7 @@ namespace huntsman::model
 		Object();
 		virtual ~Object() = default;
 
-		virtual std::string getClassName() {}
+		virtual std::string getClassName() { return "Object"; }
 	public:
 		void log(std::string const& message, spdlog::level::level_enum level);
 		std::string getId() { return id_; }

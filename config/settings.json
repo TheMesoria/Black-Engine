@@ -1,5 +1,5 @@
 {
-	"logger"          : {
+	"logger"        : {
 		"sinks"    : [
 			{
 				"name"  : "DebugLogSink",
@@ -28,10 +28,15 @@
 		],
 		"flush-on" : "dbg"
 	},
-	"window-settings" : {
-		"size" : {
-			"width"  : 680,
-			"height" : 400
+	"game-settings" : {
+		"hunting-ground"  : {
+			"settings" : {
+				"chunk-size" : 256,
+				"grid-size"  : { "x" : 200, "y" : 200 }
+			}
+		},
+		"window-settings" : {
+			"size" : { "width" : 680, "height" : 400 }
 		}
 	}
 }

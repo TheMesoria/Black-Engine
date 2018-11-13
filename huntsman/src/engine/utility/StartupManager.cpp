@@ -10,13 +10,14 @@
 namespace huntsman
 {
 	StartupManager::StartupManager( Huntsman& huntsman, Settings const& settings ) :
-			huntsman_( huntsman ), settings_( settings ) {}
+			settings_( settings ), huntsman_( huntsman ) {}
 
 	bool StartupManager::initialiseHuntsman()
 	{
 		bool failedInitialisation = false;
 
 		failedInitialisation |= not initialiseLogger();
+		failedInitialisation |= not initialiseHuntingGround();
 
 		return failedInitialisation;
 	}
@@ -27,7 +28,6 @@ namespace huntsman
 		if( spdlog::get( "main" ) )
 		{
 			logger_ = spdlog::get( "main" );
-			logger_->info("KURWA SEGFAULT");
 		}
 		else
 		{
@@ -46,5 +46,19 @@ namespace huntsman
 
 
 		return logger_ ? true : false;
+	}
+
+	bool StartupManager::initialiseHuntingGround()
+	{
+		try
+		{
+			huntsman_.huntingGround = std::make_shared<HuntingGround>( settings_ );
+		}
+		catch( std::exception& e )
+		{
+			std::cerr << "Failed to initialise HuntingGround." << std::endl;
+			return false;
+		}
+		return true;
 	}
 }

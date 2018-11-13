@@ -6,10 +6,10 @@
 
 #include <gmock/gmock.h>
 
-#include <engine/utility/Settings.hpp>
+#include <engine/utility/SettingsFacade.hpp>
 
 class SettingsMock
-		: public huntsman::utility::Settings
+		: public huntsman::utility::SettingsFacade
 {
 //	MOCK_METHOD0(  );
 };

@@ -9,25 +9,32 @@
 
 #include <nlohmann/json.hpp>
 
-#include "utility/Settings.hpp"
+#include <Logger.hpp>
+#include <engine/view/HuntingGround.hpp>
+#include "engine/utility/SettingsFacade.hpp"
 
 namespace huntsman
 {
 	using json = nlohmann::json;
-	using LoggerPtr = std::shared_ptr<spdlog::logger>;
 
 	class Huntsman
 	{
+		static Huntsman huntsmanInstance;
+
 		LoggerPtr logger_;
 		std::unique_ptr<Settings> settings_;
+
+		std::shared_ptr<HuntingGround> huntingGround;
 	public:
-		Huntsman() = default;
-		~Huntsman() = default;
+		static Huntsman& getInstance();
 
 		void start();
 		void start( std::string const& configPath );
 
 	private:
+		Huntsman() = default;
+		~Huntsman() = default;
+
 		void loadConfig( std::string const& configPath );
 
 		friend class StartupManager;

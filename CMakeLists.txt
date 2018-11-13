@@ -6,6 +6,7 @@ PROJECT( Black-Engine )
 ENABLE_TESTING()
 
 INCLUDE_DIRECTORIES( huntsman/include )
+INCLUDE_DIRECTORIES( huntsman/include/global )
 
 IF( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	MESSAGE( "-- 64 bit compiler detected" )
@@ -17,7 +18,7 @@ ELSE( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	SET( EX_PLATFORM_NAME "x86" )
 ENDIF( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 
-SET( ERROR_FLAGS "-Wall -Werror -Wextra -Wfatal-errors -pedantic-errors" )
+SET( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic-errors" )
 
 CONFIGURE_FILE( config/settings.json config/settings.json )
 CONFIGURE_FILE( config/CmakeVariables.h.in ${CMAKE_CURRENT_SOURCE_DIR}/huntsman/include/global/CMakeVariables.hpp )

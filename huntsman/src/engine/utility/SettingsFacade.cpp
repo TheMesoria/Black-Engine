@@ -2,23 +2,23 @@
 // Created by Wojciech Ormaniec on 31.10.18.
 // Copyright (c) 2018 Industry of Black. All rights reserved.
 //
-#include "engine/utility/Settings.hpp"
+#include "engine/utility/SettingsFacade.hpp"
 
 #include <fstream>
-#include <engine/utility/Settings.hpp>
+#include <engine/utility/SettingsFacade.hpp>
 #include <iostream>
 #include <engine/utility/LoggerHelper.hpp>
 
 
 namespace huntsman::utility
 {
-	Settings::Settings( std::string const& settingsFilePath )
+	SettingsFacade::SettingsFacade( std::string const& settingsFilePath )
 	{
 		std::ifstream file( settingsFilePath );
 		file >> activeConfigFile_;
 	}
 
-	std::pair<int, int> Settings::getWindowSize() const
+	std::pair<size_t, size_t> SettingsFacade::getWindowSize() const
 	{
 		int height, width;
 		height = activeConfigFile_[ "window-settings" ][ "height" ];
@@ -27,7 +27,7 @@ namespace huntsman::utility
 		return { height, width };
 	}
 
-	std::vector<spdlog::sink_ptr> Settings::getSinks() const
+	std::vector<spdlog::sink_ptr> SettingsFacade::getSinks() const
 	{
 		auto sinks = activeConfigFile_[ "logger" ][ "sinks" ];
 
@@ -47,8 +47,20 @@ namespace huntsman::utility
 		return resultVector;
 	}
 
-	spdlog::level::level_enum Settings::getFlushOnLevel() const
+	spdlog::level::level_enum SettingsFacade::getFlushOnLevel() const
 	{
 		return spdlog::level::from_str( activeConfigFile_[ "logger" ][ "flush-on" ] );
+	}
+
+	size_t SettingsFacade::getHuntingGroundChunkSize() const
+	{
+		return activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "chunk-size" ].get<size_t>();
+	}
+
+	std::pair<size_t, size_t> SettingsFacade::getHuntingGroundSize() const
+	{
+		auto x = activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "grid-size" ][ "x" ].get<size_t>(),
+			 y = activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "grid-size" ][ "y" ].get<size_t>();
+		return {x,y};
 	}
 }
