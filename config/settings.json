@@ -26,7 +26,8 @@
 				"level" : "debug"
 			}
 		],
-		"flush-on" : "dbg"
+		"flush-on" : "debug",
+		"level" : "debug"
 	},
 	"game-settings" : {
 		"hunting-ground"  : {

@@ -18,3 +18,5 @@ protected:
 };
 }
 
+using HuntObject = huntsman::model::HuntObject;
+

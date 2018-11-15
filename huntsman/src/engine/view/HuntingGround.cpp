@@ -5,6 +5,8 @@
 #include "engine/view/HuntingGround.hpp"
 
 #include <Logger.hpp>
+#include <engine/view/HuntingGround.hpp>
+
 
 namespace huntsman
 {
@@ -12,15 +14,22 @@ namespace huntsman
 	HuntingGround::HuntingGround( Settings const& settings )
 			:
 			gridChunkSize_( settings.getHuntingGroundChunkSize() )
-			, gridSize_( settings.getHuntingGroundSize() )
 			, logger_( spdlog::get( "main" ) )
 	{
 		LOG_DEBUG( logger_, "[CTOR]" );
-		logger_->set_level(spdlog::level::debug);
-		logger_->debug("lol");
-		logger_->flush();
+		createGrid( settings.getHuntingGroundSize() );
 
 		LOG_INFO( logger_, "Hunting ground ready." );
+	}
+
+	void HuntingGround::createGrid( GridSize const& gridSize )
+	{
+		auto[gridX, gridY] = gridSize;
+		LOG_DEBUG_F( logger_, "Creating hunting grid of size: x = {}, y={}", gridX, gridY );
+		for( auto i = 0u; i < gridX; i++ )
+		{
+			grid_.emplace_back( gridY );
+		}
 	}
 
 }

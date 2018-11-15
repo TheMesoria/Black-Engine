@@ -20,7 +20,6 @@ namespace huntsman
 	class HuntingGround
 	{
 		Size     gridChunkSize_;
-		GridSize gridSize_;
 		Grid     grid_;
 
 		LoggerPtr logger_;
@@ -31,6 +30,8 @@ namespace huntsman
 		HuntingGround( Settings const& settings );
 		HuntingGround& operator=( HuntingGround const& ) = default;
 
+	private:
+		void createGrid(GridSize const& gridSize);
 	};
 }
 

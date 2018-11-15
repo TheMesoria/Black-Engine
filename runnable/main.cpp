@@ -4,8 +4,12 @@
 //
 
 #include <engine/Huntsman.hpp>
+#include <list>
+#include <iostream>
 
 int main( int argc, char** args )
 {
 	Huntsman::getInstance().start();
+
+	return EXIT_SUCCESS;
 }

@@ -28,3 +28,5 @@ namespace huntsman::model
 		std::string getId() { return id_; }
 	};
 }
+
+using Object = huntsman::model::Object;

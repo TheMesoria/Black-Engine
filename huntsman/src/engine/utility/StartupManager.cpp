@@ -37,6 +37,8 @@ namespace huntsman
 		}
 
 		logger_->flush_on( settings_.getFlushOnLevel() );
+		logger_->set_level( settings_.getLoggerLevel() );
+
 		logger_->info( "############################################################" );
 		logger_->info( "#                        Run Started                       #" );
 		logger_->info( "############################################################" );

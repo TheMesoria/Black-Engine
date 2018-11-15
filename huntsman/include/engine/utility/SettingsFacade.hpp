@@ -23,8 +23,10 @@ namespace huntsman::utility
 		std::vector<spdlog::sink_ptr> getSinks() const;
 		std::pair<size_t, size_t> getWindowSize() const;
 		spdlog::level::level_enum getFlushOnLevel() const;
+		spdlog::level::level_enum getLoggerLevel() const;
 		size_t getHuntingGroundChunkSize() const;
 		std::pair<size_t, size_t> getHuntingGroundSize() const;
+
 	private:
 		json activeConfigFile_;
 	};

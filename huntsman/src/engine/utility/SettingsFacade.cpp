@@ -52,6 +52,11 @@ namespace huntsman::utility
 		return spdlog::level::from_str( activeConfigFile_[ "logger" ][ "flush-on" ] );
 	}
 
+	spdlog::level::level_enum SettingsFacade::getLoggerLevel() const
+	{
+		return spdlog::level::from_str( activeConfigFile_[ "logger" ][ "level" ] );
+	}
+
 	size_t SettingsFacade::getHuntingGroundChunkSize() const
 	{
 		return activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "chunk-size" ].get<size_t>();
@@ -63,4 +68,5 @@ namespace huntsman::utility
 			 y = activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "grid-size" ][ "y" ].get<size_t>();
 		return {x,y};
 	}
+
 }
