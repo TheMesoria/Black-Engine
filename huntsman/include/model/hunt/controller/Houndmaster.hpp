@@ -9,7 +9,7 @@
 namespace huntsman::controller
 {
 	class Houndmaster
-{
+	{
 
 	};
 }
