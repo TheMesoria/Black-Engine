@@ -14,3 +14,5 @@ namespace huntsman::controller
 	};
 }
 
+using Houndmaster = huntsman::controller::Houndmaster;
+

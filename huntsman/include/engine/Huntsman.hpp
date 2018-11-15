@@ -11,6 +11,7 @@
 
 #include <Logger.hpp>
 #include <engine/view/HuntingGround.hpp>
+#include <model/hunt/controller/Houndmaster.hpp>
 #include "engine/utility/SettingsFacade.hpp"
 
 namespace huntsman
@@ -23,6 +24,7 @@ namespace huntsman
 
 		LoggerPtr logger_;
 		std::unique_ptr<Settings> settings_;
+		std::vector<Houndmaster> houndmasterVector_;
 
 		std::shared_ptr<HuntingGround> huntingGround;
 	public:

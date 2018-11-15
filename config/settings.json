@@ -1,5 +1,5 @@
 {
-	"logger"        : {
+	"logger"          : {
 		"sinks"    : [
 			{
 				"name"  : "DebugLogSink",
@@ -29,7 +29,7 @@
 		"flush-on" : "debug",
 		"level" : "debug"
 	},
-	"game-settings" : {
+	"engine-settings" : {
 		"hunting-ground"  : {
 			"settings" : {
 				"chunk-size" : 256,
@@ -38,6 +38,10 @@
 		},
 		"window-settings" : {
 			"size" : { "width" : 680, "height" : 400 }
+		},
+		"hound-master" : {
+			"amount" : 10,
+			"hound-count" : 10
 		}
 	}
 }

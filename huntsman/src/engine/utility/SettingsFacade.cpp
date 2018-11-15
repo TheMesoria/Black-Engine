@@ -59,14 +59,24 @@ namespace huntsman::utility
 
 	size_t SettingsFacade::getHuntingGroundChunkSize() const
 	{
-		return activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "chunk-size" ].get<size_t>();
+		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "settings" ][ "chunk-size" ].get<size_t>();
 	}
 
 	std::pair<size_t, size_t> SettingsFacade::getHuntingGroundSize() const
 	{
-		auto x = activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "grid-size" ][ "x" ].get<size_t>(),
-			 y = activeConfigFile_[ "game-settings" ][ "hunting-ground" ][ "settings" ][ "grid-size" ][ "y" ].get<size_t>();
+		auto x = activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "settings" ][ "grid-size" ][ "x" ].get<size_t>(),
+			 y = activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "settings" ][ "grid-size" ][ "y" ].get<size_t>();
 		return {x,y};
+	}
+
+	size_t SettingsFacade::getHoundmasterHoundCount() const
+	{
+		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "hound-master" ][ "amount" ].get<size_t>();
+	}
+
+	size_t SettingsFacade::getHoundmasterAmount() const
+	{
+		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "hound-master" ][ "hound-count" ].get<size_t>();
 	}
 
 }

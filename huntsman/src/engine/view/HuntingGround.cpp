@@ -19,6 +19,7 @@ namespace huntsman
 		LOG_DEBUG( logger_, "[CTOR]" );
 		createGrid( settings.getHuntingGroundSize() );
 
+		LOG_DEBUG_F( logger_, "Hunting ground size : {} pixels.", gridChunkSize_ * grid_.size() );
 		LOG_INFO( logger_, "Hunting ground ready." );
 	}
 

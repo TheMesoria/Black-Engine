@@ -25,6 +25,8 @@ namespace huntsman::utility
 		spdlog::level::level_enum getFlushOnLevel() const;
 		spdlog::level::level_enum getLoggerLevel() const;
 		size_t getHuntingGroundChunkSize() const;
+		size_t getHoundmasterAmount() const;
+		size_t getHoundmasterHoundCount() const;
 		std::pair<size_t, size_t> getHuntingGroundSize() const;
 
 	private:
