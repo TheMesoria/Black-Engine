@@ -8,7 +8,7 @@
 #include <engine/view/HuntingGround.hpp>
 
 
-namespace huntsman
+namespace huntsman::view
 {
 
 	HuntingGround::HuntingGround( Settings const& settings )

@@ -15,6 +15,6 @@ ADD_LIBRARY( BLACK-HUNTSMAN
 			 include/global/Macros.hpp
 			 src/global/Macros.cpp
 			 include/global/Logger.hpp
-			 )
+			 src/engine/view/Falconer.cpp include/engine/view/Falconer.hpp )
 
 ADD_DEPENDENCIES( BLACK-HUNTSMAN SFML SPDLOG JSON )

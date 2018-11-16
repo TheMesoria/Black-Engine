@@ -11,7 +11,7 @@
 #include <engine/utility/SettingsFacade.hpp>
 #include <engine/view/components/HuntingGroundChunk.hpp>
 
-namespace huntsman
+namespace huntsman::view
 {
 	using Grid            = std::vector<std::vector<HuntingGroundChunk>>;
 	using Size            = size_t;
@@ -35,4 +35,4 @@ namespace huntsman
 	};
 }
 
-using HuntingGround = huntsman::HuntingGround;
+using HuntingGround = huntsman::view::HuntingGround;

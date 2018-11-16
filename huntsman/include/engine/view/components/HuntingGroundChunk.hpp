@@ -8,7 +8,7 @@
 
 #include <model/hunt/HuntObject.hpp>
 
-namespace huntsman::component
+namespace huntsman::view::component
 {
 	struct HuntingGroundChunk
 	{
@@ -20,4 +20,4 @@ namespace huntsman::component
 	};
 }
 
-using HuntingGroundChunk = huntsman::component::HuntingGroundChunk;
+using HuntingGroundChunk = huntsman::view::component::HuntingGroundChunk;

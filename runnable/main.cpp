@@ -9,6 +9,14 @@
 
 int main( int argc, char** args )
 {
+	std::wcerr << "argc : " << argc << std::endl;
+	std::wcerr << "args : " << std::endl;
+	for( auto i = 0; i < argc; i++ )
+	{
+		std::wcerr << i+1 << ")" << args[ i ] << std::endl;
+	}
+	std::wcerr << std::endl << std::endl;
+
 	Huntsman::getInstance().start();
 
 	return EXIT_SUCCESS;

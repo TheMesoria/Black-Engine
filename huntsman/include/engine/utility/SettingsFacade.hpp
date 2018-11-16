@@ -9,6 +9,7 @@
 
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
+#include <SFML/
 
 namespace huntsman::utility
 {
@@ -22,12 +23,18 @@ namespace huntsman::utility
 
 		std::vector<spdlog::sink_ptr> getSinks() const;
 		std::pair<size_t, size_t> getWindowSize() const;
+		std::pair<size_t, size_t> getHuntingGroundSize() const;
 		spdlog::level::level_enum getFlushOnLevel() const;
 		spdlog::level::level_enum getLoggerLevel() const;
 		size_t getHuntingGroundChunkSize() const;
 		size_t getHoundmasterAmount() const;
 		size_t getHoundmasterHoundCount() const;
-		std::pair<size_t, size_t> getHuntingGroundSize() const;
+		unsigned getDepth() const;
+		unsigned getStencil() const;
+		unsigned getAntialiasing() const;
+		unsigned getMajor() const;
+		unsigned getminor() const;
+		sf::ContextSettings::Attribute getAttribute();
 
 	private:
 		json activeConfigFile_;

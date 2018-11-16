@@ -36,8 +36,18 @@
 				"grid-size"  : { "x" : 200, "y" : 200 }
 			}
 		},
-		"window-settings" : {
-			"size" : { "width" : 680, "height" : 400 }
+		"falconer" : {
+			"window" : {
+				"title" : "My little disaster",
+				"size" : { "width" : 680, "height" : 400 },
+				"depth" : 0,
+				"stencil" : 0,
+				"antialiasing" : 0,
+				"major" : 1,
+				"minor" : 1,
+				"attribute" : "Debug",
+				"sRgb" : false
+			},
 		},
 		"hound-master" : {
 			"amount" : 10,
