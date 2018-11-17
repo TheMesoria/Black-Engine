@@ -6,11 +6,7 @@
 
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define LOG( string ) if( spdlog::get( "main" ) ) spdlog::get( "main" )->info( string )
-#define DEBUG( string ) if( spdlog::get( "main" ) ) spdlog::get( "main" )->debug( string )
-#define WARN( string ) if( spdlog::get( "main" ) ) spdlog::get( "main" )->warn( string )
-#define ERROR( string ) if( spdlog::get( "main" ) ) spdlog::get( "main" )->error( string )
-#define CRITICAL( string ) if( spdlog::get( "main" ) ) spdlog::get( "main" )->error( string )
+#define LOG_DEBUG_O( logger, msg ) logger->debug("[{}:{}][{}][{}][{}] : {}", __FILENAME__ , __LINE__, __FUNCTION__, this->getId(), this->getClassName(), msg)
 
 #define LOG_DEBUG( logger, msg ) logger->debug("[{}:{}][{}]: {}", __FILENAME__ , __LINE__, __FUNCTION__, msg)
 #define LOG_DEBUG_F( logger, formatString, ... ) logger->debug(std::string(std::string("[{}:{}][{}]: ") + std::string(formatString)).c_str(), __FILENAME__ , __LINE__, __FUNCTION__, __VA_ARGS__)

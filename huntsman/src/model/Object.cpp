@@ -5,8 +5,10 @@
 
 #include <model/Object.hpp>
 #include <global/Generators.hpp>
+#include <global/Macros.hpp>
 
 #include "model/Object.hpp"
+#include <Logger.hpp>
 
 namespace huntsman::model
 {
@@ -14,15 +16,9 @@ namespace huntsman::model
 
 	Object::Object()
 			: id_( idGenerator())
-			  , logger_( spdlog::get( "main" )) {}
-
-	void Object::log( std::string const &message, spdlog::level::level_enum level )
-	{
-		std::string parseMessage = "[" + id_ + "]" + message;
-		logger_->log(
-				level,
-				parseMessage
-		);
-	}
+			  , logger_( spdlog::get( "main" ))
+			  {
+				  LOG_DEBUG_O(logger_, "[CTOR]");
+			  }
 
 }

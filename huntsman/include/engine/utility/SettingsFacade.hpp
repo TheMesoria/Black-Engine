@@ -9,7 +9,7 @@
 
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
-#include <SFML/
+#include <SFML/Graphics.hpp>
 
 namespace huntsman::utility
 {
@@ -17,24 +17,29 @@ namespace huntsman::utility
 
 	class SettingsFacade
 	{
+		using Attribute = sf::ContextSettings::Attribute;
+
 	public:
 		SettingsFacade() = default;
 		explicit SettingsFacade( std::string const& settingsFilePath );
 
-		std::vector<spdlog::sink_ptr> getSinks() const;
-		std::pair<size_t, size_t> getWindowSize() const;
-		std::pair<size_t, size_t> getHuntingGroundSize() const;
-		spdlog::level::level_enum getFlushOnLevel() const;
-		spdlog::level::level_enum getLoggerLevel() const;
+		bool isSrgb() const;
 		size_t getHuntingGroundChunkSize() const;
 		size_t getHoundmasterAmount() const;
 		size_t getHoundmasterHoundCount() const;
-		unsigned getDepth() const;
-		unsigned getStencil() const;
-		unsigned getAntialiasing() const;
+		unsigned getWindowDepth() const;
+		unsigned getWindowStencil() const;
+		unsigned getWindowAntialiasing() const;
 		unsigned getMajor() const;
-		unsigned getminor() const;
-		sf::ContextSettings::Attribute getAttribute();
+		unsigned getMinor() const;
+		unsigned getWindowStyle() const;
+		std::string getWindowTitle() const;
+		std::pair<unsigned, unsigned> getWindowSize() const;
+		std::pair<size_t, size_t> getHuntingGroundSize() const;
+		std::vector<spdlog::sink_ptr> getLoggerSinks() const;
+		Attribute getWindowAttribute() const;
+		spdlog::level::level_enum getLoggerFlushOnLevel() const;
+		spdlog::level::level_enum getLoggerLevel() const;
 
 	private:
 		json activeConfigFile_;

@@ -18,6 +18,7 @@ namespace huntsman
 
 		failedInitialisation |= not initialiseLogger();
 		failedInitialisation |= not initialiseHuntingGround();
+		failedInitialisation |= not initialiseFalconer();
 
 		return failedInitialisation;
 	}
@@ -31,12 +32,12 @@ namespace huntsman
 		}
 		else
 		{
-			auto sinks = settings_.getSinks();
+			auto sinks = settings_.getLoggerSinks();
 			logger_ = std::make_shared<spdlog::logger>( "main", sinks.begin(), sinks.end() );
 			spdlog::register_logger( logger_ );
 		}
 
-		logger_->flush_on( settings_.getFlushOnLevel() );
+		logger_->flush_on( settings_.getLoggerFlushOnLevel() );
 		logger_->set_level( settings_.getLoggerLevel() );
 
 		logger_->info( "############################################################" );
@@ -47,7 +48,7 @@ namespace huntsman
 		huntsman_.logger_ = logger_;
 
 
-		return logger_ ? true : false;
+		return logger_ != nullptr || false;
 	}
 
 	bool StartupManager::initialiseHuntingGround()
@@ -61,6 +62,21 @@ namespace huntsman
 			std::cerr << "Failed to initialise HuntingGround." << std::endl;
 			return false;
 		}
+		return true;
+	}
+
+	bool StartupManager::initialiseFalconer()
+	{
+		try
+		{
+			huntsman_.falconer_ = std::make_unique<Falconer>( settings_ );
+		}
+		catch( std::exception e )
+		{
+			std::cerr << "Failed to initialise Falconer." << std::endl;
+			return false;
+		}
+
 		return true;
 	}
 }

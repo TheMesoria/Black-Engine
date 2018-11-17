@@ -9,6 +9,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <Logger.hpp>
 #include <engine/utility/SettingsFacade.hpp>
 
 namespace huntsman::view
@@ -16,8 +17,11 @@ namespace huntsman::view
 	class Falconer
 	{
 		std::unique_ptr<sf::RenderWindow> renderWindowPtr_;
+		LoggerPtr logger_;
 
 	public:
 		Falconer( Settings const& settings);
 	};
 }
+
+using Falconer = huntsman::view::Falconer;

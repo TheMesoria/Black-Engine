@@ -25,5 +25,6 @@ namespace huntsman
 
 		bool initialiseLogger();
 		bool initialiseHuntingGround();
+		bool initialiseFalconer();
 	};
 }

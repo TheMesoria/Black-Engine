@@ -7,13 +7,32 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <Logger.hpp>
+
 namespace huntsman::view
 {
 	Falconer::Falconer( Settings const& settings )
+			:
+			logger_( spdlog::get( "main" ) )
 	{
-		renderWindowPtr_ = std::make_unique<sf::RenderWindow>(sf::VideoMode(),"",0);
-		sf::RenderWindow(sf::VideoMode(),"",0,sf::ContextSettings());
+		auto[sizeX, sizeY] = settings.getWindowSize();
+//		renderWindowPtr_ = std::make_unique<sf::RenderWindow>();
+		auto srw = sf::RenderWindow(
+				sf::VideoMode( sizeX, sizeY, 32 )
+				, settings.getWindowTitle()
+				, settings.getWindowStyle()
+				, sf::ContextSettings(
+						settings.getWindowDepth()
+						, settings.getWindowStencil()
+						, settings.getWindowAntialiasing()
+						, settings.getMajor()
+						, settings.getMinor()
+						, settings.getWindowAttribute()
+						, settings.isSrgb() ) );
+
+		LOG_INFO( logger_, "Falconer is ready." );
 	}
+
 }
 
 

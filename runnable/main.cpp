@@ -6,6 +6,7 @@
 #include <engine/Huntsman.hpp>
 #include <list>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 int main( int argc, char** args )
 {
@@ -18,6 +19,8 @@ int main( int argc, char** args )
 	std::wcerr << std::endl << std::endl;
 
 	Huntsman::getInstance().start();
+
+	spdlog::get("main")->info("Fuck?");
 
 	return EXIT_SUCCESS;
 }

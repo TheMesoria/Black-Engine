@@ -27,30 +27,33 @@
 			}
 		],
 		"flush-on" : "debug",
-		"level" : "debug"
+		"level"    : "debug"
 	},
 	"engine-settings" : {
-		"hunting-ground"  : {
+		"hunting-ground" : {
 			"settings" : {
 				"chunk-size" : 256,
 				"grid-size"  : { "x" : 200, "y" : 200 }
 			}
 		},
-		"falconer" : {
+		"falconer"       : {
 			"window" : {
-				"title" : "My little disaster",
-				"size" : { "width" : 680, "height" : 400 },
-				"depth" : 0,
-				"stencil" : 0,
+				"title"        : "My little disaster",
+				"size"         : { "width" : 680, "height" : 400 },
+				"style"        : [
+					"Default"
+				],
+				"depth"        : 0,
+				"stencil"      : 0,
 				"antialiasing" : 0,
-				"major" : 1,
-				"minor" : 1,
-				"attribute" : "Debug",
-				"sRgb" : false
-			},
+				"major"        : 1,
+				"minor"        : 1,
+				"attribute"    : "Debug",
+				"sRgb"         : false
+			}
 		},
-		"hound-master" : {
-			"amount" : 10,
+		"hound-master"   : {
+			"amount"      : 10,
 			"hound-count" : 10
 		}
 	}
