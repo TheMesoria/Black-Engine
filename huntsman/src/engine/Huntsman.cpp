@@ -22,9 +22,10 @@ namespace huntsman
 		settings_ = std::make_unique<Settings>( configPath );
 		StartupManager startupManager( *this, *settings_ );
 
-		if( startupManager.initialiseHuntsman() )
+		if( !startupManager.initialiseHuntsman() )
 		{
-			std::cerr << "Initialisation Failed!" << std::endl;
+			std::cout << "Initialisation Failed!" << std::endl;
+			exit(EXIT_FAILURE);
 		}
 
 		LOG_INFO( logger_, "Initialised successfully." );

@@ -2,7 +2,7 @@
 // Created by Wojciech Ormaniec on 31.10.18.
 // Copyright (c) 2018 Industry of Black. All rights reserved.
 //
-#pragma onve
+#pragma once
 
 #include <gmock/gmock.h>
 

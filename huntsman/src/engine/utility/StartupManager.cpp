@@ -20,7 +20,7 @@ namespace huntsman
 		failedInitialisation |= not initialiseHuntingGround();
 		failedInitialisation |= not initialiseFalconer();
 
-		return failedInitialisation;
+		return !failedInitialisation;
 	}
 
 	bool StartupManager::initialiseLogger()
@@ -48,7 +48,7 @@ namespace huntsman
 		huntsman_.logger_ = logger_;
 
 
-		return logger_ != nullptr || false;
+		return logger_ != nullptr;
 	}
 
 	bool StartupManager::initialiseHuntingGround()
@@ -59,7 +59,7 @@ namespace huntsman
 		}
 		catch( std::exception& e )
 		{
-			std::cerr << "Failed to initialise HuntingGround." << std::endl;
+			std::cout << "Failed to initialise HuntingGround." << std::endl;
 			return false;
 		}
 		return true;
@@ -67,15 +67,15 @@ namespace huntsman
 
 	bool StartupManager::initialiseFalconer()
 	{
-		try
-		{
+//		try
+//		{
 			huntsman_.falconer_ = std::make_unique<Falconer>( settings_ );
-		}
-		catch( std::exception e )
-		{
-			std::cerr << "Failed to initialise Falconer." << std::endl;
-			return false;
-		}
+//		}
+//		catch( ... )
+//		{
+//			std::cout << "Failed to initialise Falconer." << std::endl;
+//			return false;
+//		}
 
 		return true;
 	}

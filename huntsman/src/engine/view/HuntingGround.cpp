@@ -16,7 +16,6 @@ namespace huntsman::view
 			gridChunkSize_( settings.getHuntingGroundChunkSize() )
 			, logger_( spdlog::get( "main" ) )
 	{
-		LOG_DEBUG( logger_, "[CTOR]" );
 		createGrid( settings.getHuntingGroundSize() );
 
 		LOG_DEBUG_F( logger_, "Hunting ground size : {} pixels.", gridChunkSize_ * grid_.size() );

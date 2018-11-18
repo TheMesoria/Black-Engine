@@ -35,7 +35,7 @@ namespace huntsman
 		void start();
 		void start( std::string const& configPath );
 
-	private:
+	protected:
 		Huntsman() = default;
 		~Huntsman() = default;
 

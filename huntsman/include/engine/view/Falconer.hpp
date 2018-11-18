@@ -16,6 +16,7 @@ namespace huntsman::view
 {
 	class Falconer
 	{
+	public:
 		std::unique_ptr<sf::RenderWindow> renderWindowPtr_;
 		LoggerPtr logger_;
 

@@ -1,4 +1,5 @@
 {
+	"README_comment" : "This file contains ",
 	"logger"          : {
 		"sinks"    : [
 			{

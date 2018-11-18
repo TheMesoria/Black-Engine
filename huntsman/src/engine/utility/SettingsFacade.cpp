@@ -18,13 +18,15 @@ namespace huntsman::utility
 		file >> activeConfigFile_;
 	}
 
-	std::pair<unsigned , unsigned > SettingsFacade::getWindowSize() const
+	std::pair<unsigned, unsigned> SettingsFacade::getWindowSize() const
 	{
-		int height, width;
-		height = activeConfigFile_[ "window-settings" ][ "height" ];
-		width  = activeConfigFile_[ "window-settings" ][ "width" ];
-
-		return { height, width };
+		return
+				{
+						activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "size" ][ "height" ].get<
+								unsigned>(),
+						activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "size" ][ "width" ].get<
+								unsigned>()
+				};
 	}
 
 	std::vector<spdlog::sink_ptr> SettingsFacade::getLoggerSinks() const
@@ -73,45 +75,45 @@ namespace huntsman::utility
 
 	size_t SettingsFacade::getHoundmasterHoundCount() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "hound-master" ][ "amount" ].get<size_t>();
+		return activeConfigFile_[ "engine-settings" ][ "hound-master" ][ "amount" ].get<size_t>();
 	}
 
 	size_t SettingsFacade::getHoundmasterAmount() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "hound-master" ][ "hound-count" ].get<size_t>();
+		return activeConfigFile_[ "engine-settings" ][ "hound-master" ][ "hound-count" ].get<size_t>();
 	}
 
 	unsigned SettingsFacade::getWindowDepth() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "depth" ]
+		return activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "depth" ]
 				.get<size_t>();
 	}
 
 	unsigned SettingsFacade::getWindowStencil() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "stencil" ]
+		return activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "stencil" ]
 				.get<size_t>();
 	}
 
 	unsigned SettingsFacade::getWindowAntialiasing() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "antialiasing" ]
+		return activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "antialiasing" ]
 				.get<size_t>();
 	}
 
 	unsigned SettingsFacade::getMajor() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "major" ]
+		return activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "major" ]
 				.get<size_t>();
 	}
 
 	unsigned SettingsFacade::getMinor() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "minor" ]
+		return activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "minor" ]
 				.get<size_t>();
 	}
 
-	sf::ContextSettings::Attribute SettingsFacade::getWindowAttribute() const
+	SettingsFacade::Attribute SettingsFacade::getWindowAttribute() const
 	{
 		static const std::map<std::string, Attribute> attributeMapping = {
 				{ "Debug",   Attribute::Debug },
@@ -119,18 +121,22 @@ namespace huntsman::utility
 				{ "Core",    Attribute::Core }
 		};
 
-		return attributeMapping.at( activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "attribute" ]
+		auto x = attributeMapping.at( "Debug" );
+		auto y = activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "attribute" ]
+				.get<std::string>();
+
+		return attributeMapping.at( activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "attribute" ]
 											.get<std::string>() );
 	}
 
 	bool SettingsFacade::isSrgb() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "sRgb" ].get<bool>();
+		return activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "sRgb" ].get<bool>();
 	}
 
 	std::string SettingsFacade::getWindowTitle() const
 	{
-		return activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "title" ].get<std::string>();
+		return activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "title" ].get<std::string>();
 	}
 
 	unsigned SettingsFacade::getWindowStyle() const
@@ -138,14 +144,15 @@ namespace huntsman::utility
 		unsigned style = sf::Style::None;
 
 		static const std::map<std::string, unsigned> windowStyleMapping = {
-				{ "None",       0 },
-				{ "Titlebar",   1 << 0 },
-				{ "Resize",     1 << 1 },
-				{ "Close",      1 << 2 },
-				{ "Fullscreen", 1 << 3 },
+				{ "None",       sf::Style::None },
+				{ "Titlebar",   sf::Style::Titlebar },
+				{ "Resize",     sf::Style::Resize },
+				{ "Close",      sf::Style::Close },
+				{ "Fullscreen", sf::Style::Fullscreen },
+				{ "Default",    sf::Style::Default }
 		};
 
-		for( const auto activeStyle : activeConfigFile_[ "engine-settings" ][ "hunting-ground" ][ "falconer" ][ "window" ][ "style" ] )
+		for( const auto& activeStyle : activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "style" ] )
 		{
 			style |= windowStyleMapping.at( activeStyle.get<std::string>() );
 		}

@@ -5,6 +5,8 @@
 
 #include "engine/view/Falconer.hpp"
 
+#include <bitset>
+
 #include <SFML/Graphics.hpp>
 
 #include <Logger.hpp>
@@ -16,8 +18,7 @@ namespace huntsman::view
 			logger_( spdlog::get( "main" ) )
 	{
 		auto[sizeX, sizeY] = settings.getWindowSize();
-//		renderWindowPtr_ = std::make_unique<sf::RenderWindow>();
-		auto srw = sf::RenderWindow(
+		renderWindowPtr_ = std::make_unique<sf::RenderWindow>(
 				sf::VideoMode( sizeX, sizeY, 32 )
 				, settings.getWindowTitle()
 				, settings.getWindowStyle()
@@ -29,6 +30,10 @@ namespace huntsman::view
 						, settings.getMinor()
 						, settings.getWindowAttribute()
 						, settings.isSrgb() ) );
+
+		LOG_DEBUG_F( logger_, "Window size : [{},{}]", sizeX, sizeY );
+		LOG_DEBUG_F( logger_, "Window style : {}", std::bitset<4>( settings.getWindowStyle() ).to_string() );
+		LOG_DEBUG_F( logger_, "Context settings version : {}.{}", settings.getMajor(), settings.getMinor() );
 
 		LOG_INFO( logger_, "Falconer is ready." );
 	}

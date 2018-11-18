@@ -20,7 +20,5 @@ int main( int argc, char** args )
 
 	Huntsman::getInstance().start();
 
-	spdlog::get("main")->info("Fuck?");
-
 	return EXIT_SUCCESS;
 }
