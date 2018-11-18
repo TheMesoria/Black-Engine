@@ -1,4 +1,5 @@
 {
+	"README_comment" : "This file contains ",
 	"logger"          : {
 		"sinks"    : [
 			{
@@ -26,12 +27,35 @@
 				"level" : "debug"
 			}
 		],
-		"flush-on" : "dbg"
+		"flush-on" : "debug",
+		"level"    : "debug"
 	},
-	"window-settings" : {
-		"size" : {
-			"width"  : 680,
-			"height" : 400
+	"engine-settings" : {
+		"hunting-ground" : {
+			"settings" : {
+				"chunk-size" : 256,
+				"grid-size"  : { "x" : 200, "y" : 200 }
+			}
+		},
+		"falconer"       : {
+			"window" : {
+				"title"        : "My little disaster",
+				"size"         : { "width" : 680, "height" : 400 },
+				"style"        : [
+					"Default"
+				],
+				"depth"        : 0,
+				"stencil"      : 0,
+				"antialiasing" : 0,
+				"major"        : 1,
+				"minor"        : 1,
+				"attribute"    : "Debug",
+				"sRgb"         : false
+			}
+		},
+		"hound-master"   : {
+			"amount"      : 10,
+			"hound-count" : 10
 		}
 	}
 }

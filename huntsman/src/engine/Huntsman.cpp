@@ -6,29 +6,29 @@
 #include <iostream>
 #include <fstream>
 
-#include <experimental/filesystem>
-
-#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 
-
-#include <engine/utility/Settings.hpp>
+#include <CMakeVariables.hpp>
+#include <engine/utility/SettingsFacade.hpp>
 #include <engine/Huntsman.hpp>
 #include <engine/utility/StartupManager.hpp>
 
 namespace huntsman
 {
-	using Settings = huntsman::utility::Settings;
+	using Settings = huntsman::utility::SettingsFacade;
 
 	void Huntsman::loadConfig( std::string const& configPath )
 	{
 		settings_ = std::make_unique<Settings>( configPath );
 		StartupManager startupManager( *this, *settings_ );
 
-		if( startupManager.initialiseHuntsman() )
+		if( !startupManager.initialiseHuntsman() )
 		{
-			std::cerr << "Initialisation Failed!" << std::endl;
+			std::cout << "Initialisation Failed!" << std::endl;
+			exit(EXIT_FAILURE);
 		}
+
+		LOG_INFO( logger_, "Initialised successfully." );
 	}
 
 	void Huntsman::start( std::string const& configPath )
@@ -40,4 +40,11 @@ namespace huntsman
 	{
 		start( CMAKE_CURRENT_BINARY_DIR + "config/settings.json" );
 	}
+
+	Huntsman& Huntsman::getInstance()
+	{
+		return huntsmanInstance;
+	}
+
+	Huntsman Huntsman::huntsmanInstance;
 }

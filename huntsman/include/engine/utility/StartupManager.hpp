@@ -6,7 +6,7 @@
 
 
 #include <engine/Huntsman.hpp>
-#include "Settings.hpp"
+#include "SettingsFacade.hpp"
 
 namespace huntsman
 {
@@ -24,5 +24,7 @@ namespace huntsman
 	private:
 
 		bool initialiseLogger();
+		bool initialiseHuntingGround();
+		bool initialiseFalconer();
 	};
 }

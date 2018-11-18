@@ -9,8 +9,10 @@
 namespace huntsman::controller
 {
 	class Houndmaster
-{
+	{
 
 	};
 }
+
+using Houndmaster = huntsman::controller::Houndmaster;
 

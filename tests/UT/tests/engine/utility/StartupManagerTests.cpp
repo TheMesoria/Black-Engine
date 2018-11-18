@@ -14,15 +14,10 @@ class StartupManagerShould
 {
 public:
 	StartupManagerShould() :
-			sut_( huntsman_, settings_ ) { }
+			sut_( huntsman_, settings_ ) {}
 
 	HuntsmanMock huntsman_;
 	SettingsMock settings_;
 
 	huntsman::StartupManager sut_;
 };
-
-TEST_F( StartupManagerShould, LoadCorrectlyLogger )
-{
-
-}

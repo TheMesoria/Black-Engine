@@ -10,15 +10,17 @@
 namespace huntsman
 {
 	StartupManager::StartupManager( Huntsman& huntsman, Settings const& settings ) :
-			huntsman_( huntsman ), settings_( settings ) {}
+			settings_( settings ), huntsman_( huntsman ) {}
 
 	bool StartupManager::initialiseHuntsman()
 	{
 		bool failedInitialisation = false;
 
 		failedInitialisation |= not initialiseLogger();
+		failedInitialisation |= not initialiseHuntingGround();
+		failedInitialisation |= not initialiseFalconer();
 
-		return failedInitialisation;
+		return !failedInitialisation;
 	}
 
 	bool StartupManager::initialiseLogger()
@@ -27,16 +29,17 @@ namespace huntsman
 		if( spdlog::get( "main" ) )
 		{
 			logger_ = spdlog::get( "main" );
-			logger_->info("KURWA SEGFAULT");
 		}
 		else
 		{
-			auto sinks = settings_.getSinks();
+			auto sinks = settings_.getLoggerSinks();
 			logger_ = std::make_shared<spdlog::logger>( "main", sinks.begin(), sinks.end() );
 			spdlog::register_logger( logger_ );
 		}
 
-		logger_->flush_on( settings_.getFlushOnLevel() );
+		logger_->flush_on( settings_.getLoggerFlushOnLevel() );
+		logger_->set_level( settings_.getLoggerLevel() );
+
 		logger_->info( "############################################################" );
 		logger_->info( "#                        Run Started                       #" );
 		logger_->info( "############################################################" );
@@ -45,6 +48,35 @@ namespace huntsman
 		huntsman_.logger_ = logger_;
 
 
-		return logger_ ? true : false;
+		return logger_ != nullptr;
+	}
+
+	bool StartupManager::initialiseHuntingGround()
+	{
+		try
+		{
+			huntsman_.huntingGround = std::make_shared<HuntingGround>( settings_ );
+		}
+		catch( std::exception& e )
+		{
+			std::cout << "Failed to initialise HuntingGround." << std::endl;
+			return false;
+		}
+		return true;
+	}
+
+	bool StartupManager::initialiseFalconer()
+	{
+//		try
+//		{
+			huntsman_.falconer_ = std::make_unique<Falconer>( settings_ );
+//		}
+//		catch( ... )
+//		{
+//			std::cout << "Failed to initialise Falconer." << std::endl;
+//			return false;
+//		}
+
+		return true;
 	}
 }

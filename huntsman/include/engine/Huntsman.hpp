@@ -7,34 +7,43 @@
 
 #include <memory>
 
-#include <spdlog/logger.h>
 #include <nlohmann/json.hpp>
-#include <global/CmakeVariables.hpp>
 
-#include "utility/Settings.hpp"
+#include <Logger.hpp>
+#include <engine/view/HuntingGround.hpp>
+#include <model/hunt/controller/Houndmaster.hpp>
+#include <engine/view/Falconer.hpp>
+#include "engine/utility/SettingsFacade.hpp"
 
 namespace huntsman
 {
 	using json = nlohmann::json;
-	using Settings = huntsman::utility::Settings;
-	using LoggerPtr = std::shared_ptr<spdlog::logger>;
 
 	class Huntsman
 	{
-		std::shared_ptr<spdlog::logger> logger_;
+		static Huntsman huntsmanInstance;
+
+		LoggerPtr logger_;
 		std::unique_ptr<Settings> settings_;
+		std::unique_ptr<Falconer> falconer_;
+		std::vector<Houndmaster> houndmasterVector_;
+
+		std::shared_ptr<HuntingGround> huntingGround;
 	public:
-		Huntsman() = default;
-		~Huntsman() = default;
+		static Huntsman& getInstance();
 
 		void start();
 		void start( std::string const& configPath );
 
-	private:
+	protected:
+		Huntsman() = default;
+		~Huntsman() = default;
+
 		void loadConfig( std::string const& configPath );
 
 		friend class StartupManager;
 	};
 }
 
-using Huntsman = huntsman::Huntsman;
+namespace hsn =  huntsman;
+using Huntsman = hsn::Huntsman;
