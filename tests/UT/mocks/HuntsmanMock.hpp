@@ -14,4 +14,4 @@ class HuntsmanMock
 public:
 
 	MOCK_METHOD0( start, void( void ) );
-};git 
+};
