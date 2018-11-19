@@ -17,6 +17,6 @@ ADD_LIBRARY( BLACK-HUNTSMAN
 			 include/global/Logger.hpp
 			 src/engine/view/Falconer.cpp
 			 include/engine/view/Falconer.hpp
-			 )
+			 src/engine/Fancier.cpp include/engine/Fancier.hpp )
 
 ADD_DEPENDENCIES( BLACK-HUNTSMAN SFML SPDLOG JSON )

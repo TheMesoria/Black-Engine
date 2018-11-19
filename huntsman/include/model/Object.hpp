@@ -19,11 +19,14 @@ namespace huntsman::model
 
 		std::shared_ptr<spdlog::logger> logger_;
 	protected:
+		std::string name_;
 	public:
 		Object();
 		virtual ~Object() = default;
-
 		virtual std::string getClassName() { return "Object"; }
+
+		std::string const& getName() { return name_; }
+
 	public:
 		std::string getId() { return id_; }
 	};
