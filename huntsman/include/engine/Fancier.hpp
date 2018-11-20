@@ -10,22 +10,58 @@
 
 namespace huntsman
 {
+	template< class TYPE > using MaybeObject = std::optional<std::weak_ptr<TYPE>>;
+	template< class TYPE > using ObjectList = std::list<std::weak_ptr<TYPE>>;
+
 	class Fancier
 	{
-		std::list<std::shared_ptr<Object>>                                    hounds_;
+		std::list<std::shared_ptr<Object>> hounds_;
+
 		std::unordered_map<std::type_index, std::list<std::weak_ptr<Object>>> objectMapping_;
 	public:
-		template< class TYPE > std::weak_ptr<TYPE> getUnique();
-		template< class TYPE > std::weak_ptr<TYPE> getUnique(std::function<bool(Object)> const& );
+
+		template< class TYPE > MaybeObject<TYPE> getFirst();
+		template< class TYPE > MaybeObject<TYPE> getFirst( std::function<bool( Object )> const& predicate );
+		template< class TYPE > MaybeObject<TYPE> getUnique();
+		template< class TYPE > MaybeObject<TYPE> getUnique( std::function<bool( Object )> const& predicate );
+
 		template< class TYPE > std::list<std::weak_ptr<TYPE>> get();
 
 
 	};
 
 	template< class TYPE >
-	std::weak_ptr<TYPE> Fancier::getUnique()
+	MaybeObject<TYPE> Fancier::getFirst( std::function<bool( Object )> const& predicate )
+	{
+		return std::optional<std::weak_ptr<TYPE>>();
+	}
+
+	template< class TYPE >
+	MaybeObject<TYPE> Fancier::getFirst()
 	{
 		return std::dynamic_pointer_cast<TYPE>( objectMapping_.at( typeid( TYPE ) ).front() );
+	}
+
+	template< class TYPE >
+	MaybeObject<TYPE> Fancier::getUnique()
+	{
+		auto result = get<TYPE>();
+
+		return result.size() != 1 ? nullptr : result.front();
+	}
+
+	template< class TYPE >
+	MaybeObject<TYPE> Fancier::getUnique( std::function<bool( Object )> const& predicate )
+	{
+		auto            result = get<TYPE>();
+		std::list<TYPE> out;
+
+		for( const auto& elem : result )
+		{
+			if( predicate( elem ) ) { out.push_back( elem ); }
+		}
+
+		return out.size() != 1 ? nullptr : out.front();
 	}
 
 	template< class TYPE >
@@ -38,6 +74,7 @@ namespace huntsman
 		}
 		return outList;
 	}
+
 }
 
 using Fancier = huntsman::Fancier;
