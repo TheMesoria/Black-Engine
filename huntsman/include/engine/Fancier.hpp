@@ -21,25 +21,28 @@ namespace huntsman
 	public:
 
 		template< class TYPE > MaybeObject<TYPE> getFirst();
-		template< class TYPE > MaybeObject<TYPE> getFirst( std::function<bool( Object )> const& predicate );
+		template< class TYPE > MaybeObject<TYPE> getFirst( std::function<bool( TYPE )> const& predicate );
 		template< class TYPE > MaybeObject<TYPE> getUnique();
-		template< class TYPE > MaybeObject<TYPE> getUnique( std::function<bool( Object )> const& predicate );
+		template< class TYPE > MaybeObject<TYPE> getUnique( std::function<bool( TYPE )> const& predicate );
 
 		template< class TYPE > std::list<std::weak_ptr<TYPE>> get();
+		template< class TYPE > std::list<std::weak_ptr<TYPE>> get( std::function<bool( TYPE )> predicate );
 
 
 	};
 
 	template< class TYPE >
-	MaybeObject<TYPE> Fancier::getFirst( std::function<bool( Object )> const& predicate )
+	MaybeObject<TYPE> Fancier::getFirst()
 	{
-		return std::optional<std::weak_ptr<TYPE>>();
+		auto objectList = get<TYPE>();
+		return objectList.empty ? nullptr : objectList.front();
 	}
 
 	template< class TYPE >
-	MaybeObject<TYPE> Fancier::getFirst()
+	MaybeObject<TYPE> Fancier::getFirst( std::function<bool( TYPE )> const& predicate )
 	{
-		return std::dynamic_pointer_cast<TYPE>( objectMapping_.at( typeid( TYPE ) ).front() );
+		auto objectList = get( predicate );
+		return objectList.empty() ? nullptr : objectList;
 	}
 
 	template< class TYPE >
@@ -51,7 +54,7 @@ namespace huntsman
 	}
 
 	template< class TYPE >
-	MaybeObject<TYPE> Fancier::getUnique( std::function<bool( Object )> const& predicate )
+	MaybeObject<TYPE> Fancier::getUnique( std::function<bool( TYPE )> const& predicate )
 	{
 		auto            result = get<TYPE>();
 		std::list<TYPE> out;
@@ -75,6 +78,21 @@ namespace huntsman
 		return outList;
 	}
 
+	template< class TYPE >
+	std::list<std::weak_ptr<TYPE>> Fancier::get( std::function<bool( TYPE )> predicate )
+	{
+		std::list<std::weak_ptr<TYPE>> out;
+
+		for( auto const& elem:get<TYPE>() )
+		{
+			if( predicate( elem ) )
+			{
+				out.push_back( elem );
+			}
+		}
+		return out;
+	}
 }
+
 
 using Fancier = huntsman::Fancier;
