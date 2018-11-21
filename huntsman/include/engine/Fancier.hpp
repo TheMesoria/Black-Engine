@@ -10,24 +10,31 @@
 
 namespace huntsman
 {
-	template< class TYPE > using MaybeObject = std::optional<std::weak_ptr<TYPE>>;
+	template< class TYPE > using MaybeObject = std::optional<std::shared_ptr<TYPE>>;
 	template< class TYPE > using ObjectList = std::list<std::weak_ptr<TYPE>>;
+	template< class TYPE > using Predicate = std::function<bool( TYPE )>;
+
 
 	class Fancier
 	{
 		std::list<std::shared_ptr<Object>> hounds_;
 
-		std::unordered_map<std::type_index, std::list<std::weak_ptr<Object>>> objectMapping_;
+		std::unordered_map<std::type_index, std::list<std::shared_ptr<Object>*>> objectMapping_;
 	public:
 
 		template< class TYPE > MaybeObject<TYPE> getFirst();
-		template< class TYPE > MaybeObject<TYPE> getFirst( std::function<bool( TYPE )> const& predicate );
+		template< class TYPE > MaybeObject<TYPE> getFirst( Predicate<TYPE> const& predicate );
 		template< class TYPE > MaybeObject<TYPE> getUnique();
-		template< class TYPE > MaybeObject<TYPE> getUnique( std::function<bool( TYPE )> const& predicate );
+		template< class TYPE > MaybeObject<TYPE> getUnique( Predicate<TYPE> const& predicate );
 
 		template< class TYPE > std::list<std::weak_ptr<TYPE>> get();
 		template< class TYPE > std::list<std::weak_ptr<TYPE>> get( std::function<bool( TYPE )> predicate );
 
+		template< class TYPE > bool removeFirst();
+		template< class TYPE > bool removeFirst( Predicate<TYPE> predicate );
+
+
+		template< class TYPE > bool remove( Predicate<TYPE> predicate );
 
 	};
 
@@ -41,8 +48,8 @@ namespace huntsman
 	template< class TYPE >
 	MaybeObject<TYPE> Fancier::getFirst( std::function<bool( TYPE )> const& predicate )
 	{
-		auto objectList = get( predicate );
-		return objectList.empty() ? nullptr : objectList;
+		auto objectList = get<TYPE>( predicate );
+		return objectList.empty() ? nullptr : objectList.front();
 	}
 
 	template< class TYPE >
@@ -56,24 +63,18 @@ namespace huntsman
 	template< class TYPE >
 	MaybeObject<TYPE> Fancier::getUnique( std::function<bool( TYPE )> const& predicate )
 	{
-		auto            result = get<TYPE>();
-		std::list<TYPE> out;
+		auto result = get<TYPE>( predicate );
 
-		for( const auto& elem : result )
-		{
-			if( predicate( elem ) ) { out.push_back( elem ); }
-		}
-
-		return out.size() != 1 ? nullptr : out.front();
+		return result.size() != 1 ? nullptr : result.front();
 	}
 
 	template< class TYPE >
 	std::list<std::weak_ptr<TYPE>> Fancier::get()
 	{
 		std::list<std::weak_ptr<TYPE>> outList;
-		for( auto& ref : objectMapping_.at( typeid( TYPE ) ) )
+		for( const auto& ref : objectMapping_.at( typeid( TYPE ) ) )
 		{
-			outList.push_back( std::dynamic_pointer_cast<TYPE>( ref.lock() ) );
+			if( ref ) { outList.push_back( std::dynamic_pointer_cast<TYPE>( *ref ) ); }
 		}
 		return outList;
 	}
@@ -91,6 +92,12 @@ namespace huntsman
 			}
 		}
 		return out;
+	}
+
+	template< class TYPE >
+	bool Fancier::removeFirst()
+	{
+
 	}
 }
 
