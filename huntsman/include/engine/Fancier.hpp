@@ -11,7 +11,7 @@
 namespace huntsman
 {
 	template< class TYPE > using MaybeObject = std::optional<std::shared_ptr<TYPE>>;
-	template< class TYPE > using ObjectList = std::list<std::weak_ptr<TYPE>>;
+	template< class TYPE > using ObjectList = std::list<std::shared_ptr<TYPE>>;
 	template< class TYPE > using Predicate = std::function<bool( TYPE )>;
 
 
@@ -27,8 +27,8 @@ namespace huntsman
 		template< class TYPE > MaybeObject<TYPE> getUnique();
 		template< class TYPE > MaybeObject<TYPE> getUnique( Predicate<TYPE> const& predicate );
 
-		template< class TYPE > std::list<std::weak_ptr<TYPE>> get();
-		template< class TYPE > std::list<std::weak_ptr<TYPE>> get( std::function<bool( TYPE )> predicate );
+		template< class TYPE > std::list<std::shared_ptr<TYPE>> get();
+		template< class TYPE > std::list<std::shared_ptr<TYPE>> get( std::function<bool( TYPE )> predicate );
 
 		template< class TYPE > bool removeFirst();
 		template< class TYPE > bool removeFirst( Predicate<TYPE> predicate );
@@ -69,9 +69,9 @@ namespace huntsman
 	}
 
 	template< class TYPE >
-	std::list<std::weak_ptr<TYPE>> Fancier::get()
+	std::list<std::shared_ptr<TYPE>> Fancier::get()
 	{
-		std::list<std::weak_ptr<TYPE>> outList;
+		std::list<std::shared_ptr<TYPE>> outList;
 		for( const auto& ref : objectMapping_.at( typeid( TYPE ) ) )
 		{
 			if( ref ) { outList.push_back( std::dynamic_pointer_cast<TYPE>( *ref ) ); }
@@ -80,15 +80,16 @@ namespace huntsman
 	}
 
 	template< class TYPE >
-	std::list<std::weak_ptr<TYPE>> Fancier::get( std::function<bool( TYPE )> predicate )
+	std::list<std::shared_ptr<TYPE>> Fancier::get( std::function<bool( TYPE )> predicate )
 	{
-		std::list<std::weak_ptr<TYPE>> out;
+		std::list<std::shared_ptr<TYPE>> out;
 
-		for( auto const& elem:get<TYPE>() )
+		for( auto const& elem : objectMapping_.at( typeid( TYPE ) ) )
 		{
-			if( predicate( elem ) )
+			auto elemOfType = std::dynamic_pointer_cast<TYPE>( *elem );
+			if( predicate( elemOfType ) )
 			{
-				out.push_back( elem );
+				out.push_back( elemOfType );
 			}
 		}
 		return out;
