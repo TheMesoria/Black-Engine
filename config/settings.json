@@ -1,61 +1,67 @@
 {
-	"README_comment" : "This file contains ",
-	"logger"          : {
-		"sinks"    : [
-			{
-				"name"  : "DebugLogSink",
-				"type"  : "ansicolor-stdout-sink",
-				"path"  : "",
-				"level" : "debug"
-			},
-			{
-				"name"  : "ErrorLogSink",
-				"type"  : "simple-file-sink-mt",
-				"path"  : "@CMAKE_CURRENT_BINARY_DIR@/logs/Error.log",
-				"level" : "error"
-			},
-			{
-				"name"  : "InfoLogSink",
-				"type"  : "simple-file-sink-mt",
-				"path"  : "@CMAKE_CURRENT_BINARY_DIR@/logs/Run.log",
-				"level" : "info"
-			},
-			{
-				"name"  : "DebugLogSink",
-				"type"  : "simple-file-sink-mt",
-				"path"  : "@CMAKE_CURRENT_BINARY_DIR@/logs/Debug.log",
-				"level" : "debug"
-			}
-		],
-		"flush-on" : "debug",
-		"level"    : "debug"
-	},
-	"engine-settings" : {
-		"hunting-ground" : {
-			"settings" : {
-				"chunk-size" : 256,
-				"grid-size"  : { "x" : 200, "y" : 200 }
-			}
-		},
-		"falconer"       : {
-			"window" : {
-				"title"        : "My little disaster",
-				"size"         : { "width" : 680, "height" : 400 },
-				"style"        : [
-					"Default"
-				],
-				"depth"        : 0,
-				"stencil"      : 0,
-				"antialiasing" : 0,
-				"major"        : 1,
-				"minor"        : 1,
-				"attribute"    : "Debug",
-				"sRgb"         : false
-			}
-		},
-		"hound-master"   : {
-			"amount"      : 10,
-			"hound-count" : 10
+  "README_comment":  "This file contains ",
+  "logger":          {
+	"sinks":    [
+	  {
+		"name":  "DebugLogSink",
+		"type":  "ansicolor-stdout-sink",
+		"path":  "",
+		"level": "debug"
+	  },
+	  {
+		"name":  "ErrorLogSink",
+		"type":  "simple-file-sink-mt",
+		"path":  "@CMAKE_CURRENT_BINARY_DIR@/logs/Error.log",
+		"level": "error"
+	  },
+	  {
+		"name":  "InfoLogSink",
+		"type":  "simple-file-sink-mt",
+		"path":  "@CMAKE_CURRENT_BINARY_DIR@/logs/Run.log",
+		"level": "info"
+	  },
+	  {
+		"name":  "DebugLogSink",
+		"type":  "simple-file-sink-mt",
+		"path":  "@CMAKE_CURRENT_BINARY_DIR@/logs/Debug.log",
+		"level": "debug"
+	  }
+	],
+	"flush-on": "debug",
+	"level":    "debug"
+  },
+  "engine-settings": {
+	"hunting-ground": {
+	  "settings": {
+		"chunk-size": 256,
+		"grid-size":  {
+		  "x": 200,
+		  "y": 200
 		}
+	  }
+	},
+	"falconer":       {
+	  "window": {
+		"title":         "My little disaster",
+		"size":          {
+		  "width":  680,
+		  "height": 400
+		},
+		"style":         [
+		  "Default"
+		],
+		"depth":         0,
+		"stencil":       0,
+		"anti-aliasing": 0,
+		"major":         1,
+		"minor":         1,
+		"attribute":     "Debug",
+		"sRgb":          false
+	  }
+	},
+	"hound-master":   {
+	  "amount":      10,
+	  "hound-count": 10
 	}
+  }
 }

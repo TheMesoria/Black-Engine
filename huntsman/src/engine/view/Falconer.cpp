@@ -25,7 +25,7 @@ namespace huntsman::view
 				, sf::ContextSettings(
 						settings.getWindowDepth()
 						, settings.getWindowStencil()
-						, settings.getWindowAntialiasing()
+						, settings.getWindowAntiAliasing()
 						, settings.getMajor()
 						, settings.getMinor()
 						, settings.getWindowAttribute()

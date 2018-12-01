@@ -29,7 +29,7 @@ namespace huntsman::utility
 		size_t getHoundmasterHoundCount() const;
 		unsigned getWindowDepth() const;
 		unsigned getWindowStencil() const;
-		unsigned getWindowAntialiasing() const;
+		unsigned getWindowAntiAliasing() const;
 		unsigned getMajor() const;
 		unsigned getMinor() const;
 		unsigned getWindowStyle() const;
