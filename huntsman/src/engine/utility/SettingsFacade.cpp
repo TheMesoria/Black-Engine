@@ -121,6 +121,10 @@ namespace huntsman::utility
 				{ "Core",    Attribute::Core }
 		};
 
+		auto x = attributeMapping.at( "Debug" );
+		auto y = activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "attribute" ]
+				.get<std::string>();
+
 		return attributeMapping.at( activeConfigFile_[ "engine-settings" ][ "falconer" ][ "window" ][ "attribute" ]
 											.get<std::string>() );
 	}
