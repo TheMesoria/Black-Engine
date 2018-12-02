@@ -11,9 +11,10 @@
 namespace huntsman::model
 {
 class HuntObject
-		: public Object
+    : public Object
 {
-protected:
+public:
+    HuntObject() = default;
 
 };
 }

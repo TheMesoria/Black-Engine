@@ -11,7 +11,7 @@ int main(int argc, char** argv)
 {
 	testing::InitGoogleTest(&argc, argv);
 
-	for( auto i = 0u; i < argc; i++ )
+	for( auto i = 0; i < argc; i++ )
 	{
 		std::string val  = argv[ i ];
 		std::size_t find = val.find( "LOGGER" );
