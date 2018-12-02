@@ -1,7 +1,7 @@
 ADD_EXECUTABLE( mt
 				ModuleTests.cpp
 				startup/StartupTest.cpp
-				../COMMON/TestBase.hpp )
+				../COMMON/TestBase.hpp runtime/FancierTests.cpp)
 ADD_DEPENDENCIES( mt GTEST SFML SPDLOG )
 
 TARGET_LINK_LIBRARIES( mt

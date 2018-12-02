@@ -8,6 +8,7 @@
 #include <list>
 #include <typeindex>
 #include <Logger.hpp>
+#include <typeinfo>
 
 namespace huntsman
 {
@@ -24,10 +25,14 @@ using ObjectMapping = std::unordered_map<std::type_index, std::list<ObjectList::
 
 class Fancier
 {
-    ObjectList hounds_;
-
+    ObjectList    hounds_;
     ObjectMapping objectMapping_;
+
+    LoggerPtr logger_;
 public:
+    Fancier(LoggerPtr loggerPtr)
+        : logger_(loggerPtr)
+    {};
 
     template<class TYPE> CastObjectPtr<TYPE> add();
 
@@ -41,7 +46,6 @@ public:
 
     template<class TYPE> bool removeFirst();
     template<class TYPE> bool removeFirst(Predicate<TYPE> predicate);
-
 
     template<class TYPE> bool remove(Predicate<TYPE> predicate);
 
@@ -99,7 +103,8 @@ CastObjectList<TYPE> Fancier::get(std::function<bool(TYPE)> predicate)
     for (auto const& elem : objectMapping_.at(typeid(TYPE)))
     {
         auto elemOfType = std::dynamic_pointer_cast<TYPE>(*elem);
-        if (predicate(elemOfType))
+        LOG_DEBUG_F(logger_, "Text: {}", elemOfType->Text);
+        if (predicate(*elemOfType))
         {
             out.push_back(elemOfType);
         }
@@ -117,7 +122,7 @@ bool Fancier::removeFirst()
         return true;
     }
 
-    LOG_DEBUG_F(spdlog::get("main")
+    LOG_DEBUG_F(logger_
                 , "Requested item could not be found in local storage! [{}]"
                 , typeid(TYPE).name());
     return false;
@@ -140,7 +145,7 @@ bool Fancier::removeFirst(Predicate<TYPE> predicate)
         }
     }
 
-    LOG_DEBUG_F(spdlog::get("main")
+    LOG_DEBUG_F(logger_
                 , "Requested item could not be found in local storage! [{}][{}]"
                 , typeid(TYPE).name()
                 , typeid(predicate).name());
@@ -151,22 +156,28 @@ template<class TYPE>
 bool Fancier::remove(Predicate<TYPE> predicate)
 {
     auto objectList = objectMapping_.find(typeid(TYPE));
+    auto removeList = std::list<ObjectList::iterator>();
     auto returnFlag = false;
     if (objectList != objectMapping_.end())
     {
         for (auto& elem : objectList->second)
         {
-            auto val = std::static_pointer_cast<TYPE>(elem);
-            if (predicate(val))
+            auto val = std::static_pointer_cast<TYPE>(*elem);
+            if (predicate(*val))
             {
-                objectList->second.pop_front();
+                hounds_.remove(*elem);
+                removeList.push_back(elem);
                 returnFlag = true;
             }
+        }
+        for (auto& elem : removeList)
+        {
+            objectList->second.remove(elem);
         }
     }
 
     if (returnFlag)
-        LOG_DEBUG_F(spdlog::get("main")
+        LOG_DEBUG_F(logger_
                     , "Requested item could not be found in local storage! [{}][{}]"
                     , typeid(TYPE).name()
                     , typeid(predicate).name());
@@ -177,9 +188,14 @@ template<class TYPE>
 CastObjectPtr<TYPE> Fancier::add()
 {
     hounds_.push_back(std::dynamic_pointer_cast<Object>(std::make_shared<TYPE>()));
-    objectMapping_.insert({typeid(TYPE), {--hounds_.end()}});
 
-    return std::dynamic_pointer_cast<TYPE>(*(--hounds_.end()));
+    if (objectMapping_.find(typeid(TYPE)) == objectMapping_.end())
+    {
+        objectMapping_.insert({typeid(TYPE), {}});
+    }
+    objectMapping_.at(typeid(TYPE)).push_back(--hounds_.end());
+
+    return std::static_pointer_cast<TYPE>(*(--hounds_.end()));
 }
 
 }

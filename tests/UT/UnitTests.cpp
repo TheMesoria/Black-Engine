@@ -20,6 +20,7 @@ int main(int argc, char** argv)
 			TestBase::GTEST_LOGGING = true;
 		}
 	}
+    std::cout << "GTEST_LOGGING : " << std::boolalpha << TestBase::GTEST_LOGGING << std::endl;
 
 	return RUN_ALL_TESTS();
 }

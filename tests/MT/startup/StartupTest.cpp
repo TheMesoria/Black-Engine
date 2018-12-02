@@ -13,6 +13,6 @@ public:
 	OnStartupShould() = default;
 };
 
-TEST_F( OnStartupShould, exist )
+TEST_F( OnStartupShould, Exist )
 {
 }

@@ -9,17 +9,18 @@ bool TestBase::GTEST_LOGGING;
 
 int main(int argc, char** argv)
 {
-	testing::InitGoogleTest(&argc, argv);
+    testing::InitGoogleTest(&argc, argv);
 
-	for( auto i = 0; i < argc; i++ )
-	{
-		std::string val  = argv[ i ];
-		std::size_t find = val.find( "LOGGER" );
-		if( find != std::string::npos )
-		{
-			TestBase::GTEST_LOGGING = true;
-		}
-	}
+    for (auto i = 0; i < argc; i++)
+    {
+        std::string val  = argv[i];
+        std::size_t find = val.find("LOGGER");
+        if (find != std::string::npos)
+        {
+            TestBase::GTEST_LOGGING = true;
+        }
+    }
+    std::cout << "GTEST_LOGGING : " << std::boolalpha << TestBase::GTEST_LOGGING << std::endl;
 
-	return RUN_ALL_TESTS();
+    return RUN_ALL_TESTS();
 }

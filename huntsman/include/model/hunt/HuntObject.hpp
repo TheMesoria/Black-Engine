@@ -7,6 +7,7 @@
 
 
 #include <model/Object.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
 namespace huntsman::model
 {
@@ -15,7 +16,7 @@ class HuntObject
 {
 public:
     HuntObject() = default;
-
+    virtual sf::Drawable const& getDrawable() = 0;
 };
 }
 

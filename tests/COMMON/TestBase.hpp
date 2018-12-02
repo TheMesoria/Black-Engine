@@ -10,15 +10,22 @@
 class TestBase
 {
 public:
-	static bool GTEST_LOGGING;
+    static bool GTEST_LOGGING;
 
-	TestBase()
-	{
+    TestBase()
+    {
 
-		if( GTEST_LOGGING )
-		{
-			spdlog::create( "main", std::make_shared<spdlog::sinks::stdout_sink_mt>() );
-			spdlog::get( "main" )->set_level( spdlog::level::off );
-		}
-	}
+        if (!spdlog::get("main"))
+        {
+            spdlog::create("main", std::make_shared<spdlog::sinks::stdout_sink_mt>());
+            if (GTEST_LOGGING)
+            {
+                spdlog::get("main")->set_level(spdlog::level::debug);
+            }
+            else
+            {
+                spdlog::get("main")->set_level(spdlog::level::off);
+            }
+        }
+    }
 };
