@@ -30,8 +30,8 @@ class Fancier
 
     LoggerPtr logger_;
 public:
-    Fancier(LoggerPtr loggerPtr)
-        : logger_(loggerPtr)
+    Fancier()
+        : logger_(spdlog::get("main"))
     {};
 
     template<class TYPE> CastObjectPtr<TYPE> add();

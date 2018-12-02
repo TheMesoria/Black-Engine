@@ -13,36 +13,45 @@
 #include <engine/view/HuntingGround.hpp>
 #include <model/hunt/controller/Houndmaster.hpp>
 #include <engine/view/Falconer.hpp>
+#include <engine/Fancier.hpp>
 #include "engine/utility/SettingsFacade.hpp"
 
 namespace huntsman
 {
-	using json = nlohmann::json;
+using json = nlohmann::json;
 
-	class Huntsman
-	{
-		static Huntsman huntsmanInstance;
+class Huntsman
+{
+    static Huntsman huntsmanInstance;
 
-		LoggerPtr logger_;
-		std::unique_ptr<Settings> settings_;
-		std::unique_ptr<Falconer> falconer_;
-		std::vector<Houndmaster> houndmasterVector_;
+    LoggerPtr                 logger_;
+    std::unique_ptr<Settings> settings_;
+    std::unique_ptr<Falconer> falconer_;
+    std::unique_ptr<Fancier>  fancier_;
+    std::vector<Houndmaster>  houndmasterVector_;
 
-		std::shared_ptr<HuntingGround> huntingGround;
-	public:
-		static Huntsman& getInstance();
+    std::shared_ptr<HuntingGround> huntingGround;
+public:
+    static Huntsman& getInstance();
 
-		void start();
-		void start( std::string const& configPath );
+    void start();
+    void start(std::string const& configPath);
 
-	protected:
-		Huntsman() = default;
-		~Huntsman() = default;
+    Fancier& getFancier()
+    { return *fancier_; }
 
-		void loadConfig( std::string const& configPath );
+    Falconer& getFalconer()
+    { return *falconer_; }
 
-		friend class StartupManager;
-	};
+protected:
+    Huntsman() = default;
+    ~Huntsman() = default;
+
+    void loadConfig(std::string const& configPath);
+    void run();
+
+    friend class StartupManager;
+};
 }
 
 namespace hsn =  huntsman;

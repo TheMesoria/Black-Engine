@@ -15,36 +15,42 @@
 
 namespace huntsman
 {
-	using Settings = huntsman::utility::SettingsFacade;
+using Settings = huntsman::utility::SettingsFacade;
 
-	void Huntsman::loadConfig( std::string const& configPath )
-	{
-		settings_ = std::make_unique<Settings>( configPath );
-		StartupManager startupManager( *this, *settings_ );
+void Huntsman::loadConfig(std::string const& configPath)
+{
+    settings_ = std::make_unique<Settings>(configPath);
+    StartupManager startupManager(*this, *settings_);
 
-		if( !startupManager.initialiseHuntsman() )
-		{
-			std::cout << "Initialisation Failed!" << std::endl;
-			exit(EXIT_FAILURE);
-		}
+    if (!startupManager.initialiseHuntsman())
+    {
+        std::cout << "Initialisation Failed!" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
-		LOG_INFO( logger_, "Initialised successfully." );
-	}
+    LOG_INFO(logger_, "Initialised successfully.");
+}
 
-	void Huntsman::start( std::string const& configPath )
-	{
-		loadConfig( configPath );
-	}
+void Huntsman::start(std::string const& configPath)
+{
+    loadConfig(configPath);
 
-	void Huntsman::start()
-	{
-		start( CMAKE_CURRENT_BINARY_DIR + "config/settings.json" );
-	}
+}
 
-	Huntsman& Huntsman::getInstance()
-	{
-		return huntsmanInstance;
-	}
+void Huntsman::run()
+{
 
-	Huntsman Huntsman::huntsmanInstance;
+}
+
+void Huntsman::start()
+{
+    start(CMAKE_CURRENT_BINARY_DIR + "config/settings.json");
+}
+
+Huntsman& Huntsman::getInstance()
+{
+    return huntsmanInstance;
+}
+
+Huntsman Huntsman::huntsmanInstance;
 }

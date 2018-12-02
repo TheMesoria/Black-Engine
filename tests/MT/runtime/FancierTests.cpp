@@ -31,7 +31,7 @@ public:
 
     void SetUp() override
     {
-        sut_ = std::make_shared<Fancier>(spdlog::get("main"));
+        sut_ = std::make_shared<Fancier>();
     }
 
 public:
