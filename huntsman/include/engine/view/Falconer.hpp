@@ -21,13 +21,12 @@ public:
     LoggerPtr                         logger_;
 
 public:
-    Falconer(Settings const& settings);
+    explicit Falconer(Settings const& settings);
 
     sf::RenderWindow& operator ->()
     { return *renderWindowPtr_; }
 };
 }
 
-1111111111111111111111111111111111111111111111111111111
 
 using Falconer = huntsman::view::Falconer;
