@@ -89,7 +89,7 @@ CastObjectList<TYPE> Fancier::get()
     {
         if (*ref)
         {
-            objectList.push_back(std::dynamic_pointer_cast<TYPE>(*ref));
+            objectList.push_back(std::static_pointer_cast<TYPE>(*ref));
         }
     }
     return objectList;
@@ -102,7 +102,7 @@ CastObjectList<TYPE> Fancier::get(std::function<bool(TYPE)> predicate)
 
     for (auto const& elem : objectMapping_.at(typeid(TYPE)))
     {
-        auto elemOfType = std::dynamic_pointer_cast<TYPE>(*elem);
+        auto elemOfType = std::static_pointer_cast<TYPE>(*elem);
         LOG_DEBUG_F(logger_, "Text: {}", elemOfType->Text);
         if (predicate(*elemOfType))
         {

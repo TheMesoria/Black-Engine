@@ -10,6 +10,8 @@
 #include <SFML/Graphics.hpp>
 
 #include <Logger.hpp>
+#include <engine/view/Falconer.hpp>
+
 
 namespace huntsman::view
 {
@@ -37,6 +39,11 @@ namespace huntsman::view
 
 		LOG_INFO( logger_, "Falconer is ready." );
 	}
+
+sf::RenderWindow* Falconer::operator ->()
+{
+	return &*renderWindowPtr_;
+}
 
 }
 

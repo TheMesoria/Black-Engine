@@ -6,9 +6,12 @@
 #pragma once
 
 
+#include <list>
+#include <model/hunt/HuntObject.hpp>
+
 namespace huntsman::controller
 {
-	class Houndmaster
+	struct Houndmaster
 	{
 
 	};

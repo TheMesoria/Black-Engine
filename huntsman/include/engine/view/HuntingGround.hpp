@@ -30,6 +30,8 @@ namespace huntsman::view
 		HuntingGround( Settings const& settings );
 		HuntingGround& operator=( HuntingGround const& ) = default;
 
+		HuntObject* verifyCollision(HuntObject* testObject);
+
 	private:
 		void createGrid(GridSize const& gridSize);
 	};

@@ -7,6 +7,7 @@
 #include <engine/Fancier.hpp>
 #include <model/hunt/HuntObject.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <memory>
 #include "../../COMMON/TestBase.hpp"
 
 struct TestableHuntObject
@@ -17,10 +18,9 @@ struct TestableHuntObject
 
     sf::RectangleShape drawable;
 
-    const sf::Drawable& getDrawable() override
-    {
-        return drawable;
-    }
+    const sf::Drawable& getDrawable() override { return drawable; }
+    const std::pair<float, float>& getSize() override { return {}; }
+    const std::pair<float, float>& getPosition() override { return {}; }
 };
 
 class FancierShould

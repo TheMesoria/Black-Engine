@@ -17,6 +17,8 @@ class HuntObject
 public:
     HuntObject() = default;
     virtual sf::Drawable const& getDrawable() = 0;
+    virtual std::pair<float,float> const& getSize() = 0;
+    virtual std::pair<float,float> const& getPosition() = 0;
 };
 }
 

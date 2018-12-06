@@ -34,12 +34,27 @@ void Huntsman::loadConfig(std::string const& configPath)
 void Huntsman::start(std::string const& configPath)
 {
     loadConfig(configPath);
-
+    run();
 }
 
 void Huntsman::run()
 {
-
+    // Start the game loop
+    while ((*falconer_)->isOpen())
+    {
+        // Process events
+        sf::Event event;
+        while ((*falconer_)->pollEvent(event))
+        {
+            // Close window: exit
+            if (event.type == sf::Event::Closed)
+                (*falconer_)->close();
+        }
+        // Clear screen
+        (*falconer_)->clear();
+        // Update the window
+        (*falconer_)->display();
+    }
 }
 
 void Huntsman::start()

@@ -66,12 +66,14 @@ size_t SettingsFacade::getHuntingGroundChunkSize() const
 
 std::pair<size_t, size_t> SettingsFacade::getHuntingGroundSize() const
 {
-    auto x = activeConfigFile_["engine-settings"]["hunting-ground"]["settings"]["grid-size"]["x"]
-        .get<
-            size_t>(),
-         y = activeConfigFile_["engine-settings"]["hunting-ground"]["settings"]["grid-size"]["y"]
-             .get<
-                 size_t>();
+    auto x = activeConfigFile_
+                ["engine-settings"]["hunting-ground"]
+                ["settings"]["grid-size"]["x"]
+            .get<size_t>(),
+         y = activeConfigFile_
+                 ["engine-settings"]["hunting-ground"]
+                 ["settings"]["grid-size"]["y"]
+             .get<size_t>();
     return {x, y};
 }
 

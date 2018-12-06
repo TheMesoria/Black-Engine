@@ -16,15 +16,14 @@ namespace huntsman::view
 {
 class Falconer
 {
-public:
+private:
     std::unique_ptr<sf::RenderWindow> renderWindowPtr_;
     LoggerPtr                         logger_;
 
 public:
     explicit Falconer(Settings const& settings);
 
-    sf::RenderWindow& operator ->()
-    { return *renderWindowPtr_; }
+    sf::RenderWindow* operator ->();
 };
 }
 

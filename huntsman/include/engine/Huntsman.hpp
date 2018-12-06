@@ -43,6 +43,9 @@ public:
     Falconer& getFalconer()
     { return *falconer_; }
 
+    HuntingGround& getHuntingGround()
+    { return *huntingGround; }
+
 protected:
     Huntsman() = default;
     ~Huntsman() = default;

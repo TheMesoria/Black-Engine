@@ -2,7 +2,7 @@ CMAKE_MINIMUM_REQUIRED( VERSION 3.6 )
 SET( CMAKE_CXX_STANDARD 17 )
 INCLUDE( ExternalProject )
 
-PROJECT( Black-Engine )
+PROJECT( Black-Huntsman )
 ENABLE_TESTING()
 
 INCLUDE_DIRECTORIES( huntsman/include )
