@@ -34,13 +34,36 @@ void HuntingGround::createGrid(GridSize const& gridSize)
 
 bool CheckCollision(HuntObject* obj_1, HuntObject* obj_2)
 {
-    auto [obj_1X, obj_1Y] = obj_1->getPosition();
-    auto [obj_2X, obj_2Y] = obj_2->getPosition();
+    auto[obj_1X, obj_1Y] = obj_1->getPosition();
+    auto[obj_2X, obj_2Y] = obj_2->getPosition();
 
-    auto [obj_1sizeX, obj_1sizeY] = obj_1->getSize();
-    auto [obj_2sizeX, obj_2sizeY] = obj_2->getSize();
+    auto[obj_1sizeX, obj_1sizeY] = obj_1->getSize();
+    auto[obj_2sizeX, obj_2sizeY] = obj_2->getSize();
 
+    if ((obj_1Y + obj_1sizeY) > obj_2Y && obj_1Y < obj_2Y)
+    {
+        if ((obj_1X + obj_1sizeX) > obj_2X && obj_1X < obj_2X)
+        {
+            return true;
+        }
+        else if (obj_1X > obj_2X && (obj_1X + obj_1sizeX) < (obj_2X + obj_2sizeX))
+        {
+            return true;
+        }
+    }
+    else if( obj_1Y  < (obj_2Y+obj_2sizeY) && obj_1Y > obj_2Y )
+    {
+        if ((obj_1X + obj_1sizeX) > obj_2X && obj_1X < obj_2X)
+        {
+            return true;
+        }
+        else if (obj_1X > obj_2X && (obj_1X + obj_1sizeX) < (obj_2X + obj_2sizeX))
+        {
+            return true;
+        }
+    }
 
+    return false;
 }
 
 HuntObject* HuntingGround::verifyCollision(HuntObject* test)
@@ -98,7 +121,7 @@ void HuntingGround::moveHuntObject(std::shared_ptr<HuntObject>& obj, std::pair<f
 
         if (verifyCollision(&*obj) != nullptr)
         {
-            auto [positionX, positionY] = obj->getPosition();
+            auto[positionX, positionY] = obj->getPosition();
             LOG_DEBUG(logger_, "Object Collided!");
             obj->setPosition({positionX + vector.first, positionY + vector.second});
         }
