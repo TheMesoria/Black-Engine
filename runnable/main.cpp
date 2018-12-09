@@ -53,10 +53,10 @@ int main(int argc, char** args)
     class Gravity : public huntsman::Behavior
     {
         std::weak_ptr<HuntObject> targetObject_;
-        HuntingGround const& huntingGround_;
+        HuntingGround & huntingGround_;
         float speed_;
     public:
-        Gravity(std::shared_ptr<HuntObject> ho, HuntingGround const& hg, float speed)
+        Gravity(std::shared_ptr<HuntObject> ho, HuntingGround& hg, float speed)
             : huntingGround_(hg)
         {
             targetObject_  = ho;
@@ -72,7 +72,7 @@ int main(int argc, char** args)
 
             auto obj = targetObject_.lock();
 
-            obj->setPosition({obj->getPosition().first, obj->getPosition().second + speed_});
+            huntingGround_.moveHuntObject(obj,{0,5});
         };
     };
 

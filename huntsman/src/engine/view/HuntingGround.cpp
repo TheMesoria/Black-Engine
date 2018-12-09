@@ -46,28 +46,95 @@ HuntObject* HuntingGround::verifyCollision(HuntObject* test)
         idY = static_cast<int>((int) positionY / this->gridChunkSize_);
 
     // Collision occurs with map border
-    if(idX == 0 || idY == 0)
+    if (idX == 0 || idY == 0)
+    {
         return nullptr;
+    }
 
     std::vector<HuntingGroundChunk*> activeChunkVector =
                                          {
-                                             &grid_[idX-1][idY-1], &grid_[idX][idY-1], &grid_[idX+1][idY],
-                                             &grid_[idX-1][idY],   &grid_[idX][idY],   &grid_[idX+1][idY],
-                                             &grid_[idX-1][idY+1], &grid_[idX][idY+1], &grid_[idX+1][idY+1],
-                                         };
+                                             &grid_[idX - 1][idY - 1], &grid_[idX][idY - 1], &grid_[
+                                             idX + 1][idY], &grid_[idX - 1][idY], &grid_[idX][idY]
+                                             , &grid_[idX + 1][idY], &grid_[idX - 1][idY + 1]
+                                             , &grid_[idX][idY + 1], &grid_[idX + 1][idY + 1],};
 
-    for( auto& chunk : activeChunkVector )
+    for (auto& chunk : activeChunkVector)
     {
-        for( auto& obj : chunk->avaiableHuntObjectList_ )
+        for (auto& obj : chunk->availableHuntObjectList_)
         {
-            if(obj.expired())
+            if (obj.expired())
+            {
                 continue;
+            }
             auto activeObj = obj.lock();
-            if(CheckCollision(test,&*activeObj)) return &*activeObj;
+            if (CheckCollision(test, &*activeObj))
+            {
+                return &*activeObj;
+            }
         }
     }
 
     return nullptr;
+}
+
+void HuntingGround::moveHuntObject(std::shared_ptr<HuntObject>& obj, std::pair<float, float> vector)
+{
+    LOG_DEBUG_F(logger_
+                , "Moving object with vector[{},{}]"
+                , vector.first
+                , vector.second);
+
+    if (pop(obj))
+    {
+
+    }
+    else
+    {
+        LOG_ERR(logger_, "Object have been not moved!");
+    }
+
+}
+
+void HuntingGround::add(std::shared_ptr<HuntObject>& obj)
+{
+    auto[positionX, positionY] = obj->getPosition();
+
+    int idX = static_cast<int>((int) positionX / this->gridChunkSize_),
+        idY = static_cast<int>((int) positionY / this->gridChunkSize_);
+
+    auto& chunk = grid_[idX][idY];
+
+    chunk.availableHuntObjectList_.push_back(obj);
+}
+
+bool HuntingGround::pop(std::shared_ptr<HuntObject>& obj)
+{
+    auto[positionX, positionY] = obj->getPosition();
+
+    int idX = static_cast<int>((int) positionX / this->gridChunkSize_),
+        idY = static_cast<int>((int) positionY / this->gridChunkSize_);
+
+    auto& chunk = grid_[idX][idY];
+
+    for (auto mbyObject = chunk.availableHuntObjectList_.begin();
+         mbyObject != chunk.availableHuntObjectList_.end(); mbyObject++)
+    {
+        if (mbyObject->expired())
+        {
+            chunk.availableHuntObjectList_.erase(mbyObject);
+            continue;
+        }
+
+        auto activeObj = mbyObject->lock();
+        if (activeObj == obj)
+        {
+            chunk.availableHuntObjectList_.erase(mbyObject);
+            return true;
+        }
+    }
+
+    LOG_CRIT(logger_, "Object not found in chunk, even though it have been requested!");
+    return false;
 }
 
 }

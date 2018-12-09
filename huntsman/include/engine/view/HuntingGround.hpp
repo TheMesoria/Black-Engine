@@ -31,6 +31,9 @@ namespace huntsman::view
 		HuntingGround& operator=( HuntingGround const& ) = default;
 
 		HuntObject* verifyCollision(HuntObject* testObject);
+		void moveHuntObject(std::shared_ptr<HuntObject>& obj, std::pair<float, float> vector);
+		bool pop(std::shared_ptr<HuntObject>& obj);
+		void add(std::shared_ptr<HuntObject>& obj);
 
 	private:
 		void createGrid(GridSize const& gridSize);

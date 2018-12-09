@@ -12,7 +12,7 @@ namespace huntsman::view::component
 {
 	struct HuntingGroundChunk
 	{
-		std::list<std::weak_ptr<HuntObject>> avaiableHuntObjectList_;
+		std::list<std::weak_ptr<HuntObject>> availableHuntObjectList_;
 
 		HuntingGroundChunk() = default;
 		HuntingGroundChunk( HuntingGroundChunk& ) = default;
