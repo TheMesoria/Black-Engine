@@ -86,7 +86,14 @@ void HuntingGround::moveHuntObject(std::shared_ptr<HuntObject>& obj, std::pair<f
 
     if (pop(obj))
     {
+        auto[positionX, positionY] = obj->getPosition();
+        obj->setPosition({positionX + vector.first, positionY + vector.second});
+        if(verifyCollision(&*obj) != nullptr)
+        {
+            obj->setPosition({positionX - vector.first, positionY - vector.second});
+        }
 
+        add(obj);
     }
     else
     {
