@@ -58,7 +58,7 @@ unsigned int Falconer::addToDraw(std::list<std::shared_ptr<HuntObject>> huntObje
 
 void Falconer::run()
 {
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    // std::this_thread::sleep_for(std::chrono::milliseconds(20));
     frame_++;
     if (not toDrawList_.empty())
     {
@@ -69,7 +69,7 @@ void Falconer::run()
 void Falconer::draw()
 {
     std::lock_guard<std::mutex> lockGuard_(listAccessMutex_);
-    renderWindowPtr_->clear();
+    // renderWindowPtr_->clear();
     for (auto& elem : toDrawList_)
     {
         renderWindowPtr_->draw(elem->getDrawable());

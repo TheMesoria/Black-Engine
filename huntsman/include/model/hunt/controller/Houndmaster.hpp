@@ -16,10 +16,21 @@ namespace huntsman::controller
 {
 class Houndmaster
 {
+    static bool groupClear_;
+public:
+    static bool isGroupClear();
+    static void setGroupClear(bool groupClear);
+private:
+
     sf::Time counterClockTime_;
     sf::Clock& gameClock_;
 
-    std::mutex                           huntObjectListMutex_;
+    std::mutex huntObjectListMutex_;
+    bool       clear_       = false;
+public:
+    bool isClear() const;
+private:
+
     std::list<std::weak_ptr<HuntObject>> huntObjectList_ = {};
 
     LoggerPtr logger_ = spdlog::get("main");
@@ -29,7 +40,7 @@ public:
     {};
 
     Houndmaster(Houndmaster& houndmaster)
-    : gameClock_(houndmaster.gameClock_)
+        : gameClock_(houndmaster.gameClock_)
     {
         huntObjectList_ = houndmaster.huntObjectList_;
     };

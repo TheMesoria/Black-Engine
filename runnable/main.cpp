@@ -54,6 +54,7 @@ int main(int argc, char** args)
     {
         std::weak_ptr<HuntObject> targetObject_;
         HuntingGround & huntingGround_;
+        sf::Clock clock;
         float speed_;
     public:
         Gravity(std::shared_ptr<HuntObject> ho, HuntingGround& hg, float speed)
@@ -61,6 +62,7 @@ int main(int argc, char** args)
         {
             targetObject_  = ho;
             speed_         = speed;
+            clock.restart();
         };
 
         void behave() override
@@ -72,7 +74,7 @@ int main(int argc, char** args)
 
             auto obj = targetObject_.lock();
 
-            huntingGround_.moveHuntObject(obj,{0,-5});
+            huntingGround_.moveHuntObject(obj,{0,-speed_*clock.restart().asSeconds()});
         };
     };
 
@@ -80,7 +82,7 @@ int main(int argc, char** args)
     auto elem2 = Huntsman::getInstance().getFancier().add<GreenSquare>();
     elem2->setSize({500, 50});
     elem2->setPosition({0, 500});
-    elem->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem, Huntsman::getInstance().getHuntingGround(), 5.f)));
+    elem->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem, Huntsman::getInstance().getHuntingGround(), 50.f)));
 
     auto& falconer_ = Huntsman::getInstance().getFalconer();
 

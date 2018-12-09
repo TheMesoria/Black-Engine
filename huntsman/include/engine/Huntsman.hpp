@@ -66,6 +66,7 @@ protected:
 
     void loadConfig(std::string const& configPath);
     void run();
+    bool ready();
 
     friend class StartupManager;
 };

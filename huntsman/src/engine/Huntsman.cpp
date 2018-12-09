@@ -56,8 +56,12 @@ void Huntsman::run()
             registerNewObject(obj);
             huntingGround->add(obj);
         }
-
-        falconer_->run();
+        if (ready())
+        {
+            huntsman::controller::Houndmaster::setGroupClear(!huntsman::controller::Houndmaster::isGroupClear());
+            falconer_->operator->()->clear();
+            falconer_->run();
+        }
     }
     isRunning_ = false;
 }
@@ -94,6 +98,19 @@ void Huntsman::registerNewObject(std::shared_ptr<HuntObject>& huntObject)
 bool Huntsman::isRunning() const
 {
     return isRunning_;
+}
+
+bool Huntsman::ready()
+{
+    auto ready = true;
+    for (auto& houndmaster : houndmasterVector_)
+    {
+        if (houndmaster->isClear() != huntsman::controller::Houndmaster::isGroupClear())
+        {
+            ready = false;
+        }
+    }
+    return ready;
 }
 
 Huntsman Huntsman::huntsmanInstance;
