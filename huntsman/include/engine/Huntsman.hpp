@@ -25,7 +25,9 @@ using json = nlohmann::json;
 class Huntsman
 {
     static Huntsman huntsmanInstance;
-    std::thread     runner_;
+
+    sf::Clock   clock_;
+    std::thread runner_;
 
     LoggerPtr                      logger_;
     std::unique_ptr<Settings>      settings_;
@@ -43,6 +45,7 @@ public:
 
     void start();
     void start(std::string const& configPath);
+    bool isRunning() const;
     void registerNewObject(std::shared_ptr<HuntObject>& huntObject);
 
     Fancier& getFancier()
@@ -53,6 +56,9 @@ public:
 
     HuntingGround& getHuntingGround()
     { return *huntingGround; }
+
+    sf::Clock& getGameClock()
+    { return clock_; }
 
 protected:
     Huntsman() = default;

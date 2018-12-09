@@ -8,6 +8,7 @@
 
 #include <list>
 #include <model/hunt/HuntObject.hpp>
+#include <SFML/Graphics.hpp>
 
 #include <Logger.hpp>
 
@@ -15,14 +16,23 @@ namespace huntsman::controller
 {
 class Houndmaster
 {
+    sf::Time counterClockTime_;
+    sf::Clock& gameClock_;
+
     std::mutex                           huntObjectListMutex_;
     std::list<std::weak_ptr<HuntObject>> huntObjectList_ = {};
 
     LoggerPtr logger_ = spdlog::get("main");
 public:
-    Houndmaster() {};
+    Houndmaster(sf::Clock& clock)
+        : gameClock_(clock)
+    {};
+
     Houndmaster(Houndmaster& houndmaster)
-    {huntObjectList_=houndmaster.huntObjectList_;};
+    : gameClock_(houndmaster.gameClock_)
+    {
+        huntObjectList_ = houndmaster.huntObjectList_;
+    };
 
     void registerNewObject(std::shared_ptr<HuntObject>& objectToRegister);
     void removeExpiredObject(std::list<std::weak_ptr<HuntObject>>::iterator& elem);

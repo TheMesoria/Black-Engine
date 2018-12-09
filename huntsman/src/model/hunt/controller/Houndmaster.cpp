@@ -11,37 +11,47 @@
 void huntsman::controller::Houndmaster::run(bool const& isRunning)
 {
     LOG_DEBUG(logger_, "Starting houndmaster run.");
+    auto& falconer = Huntsman::getInstance().getFalconer();
+    auto frame = falconer.getFrame();
     while (isRunning)
     {
-        for (auto mbyHuntObject = huntObjectList_.begin(); mbyHuntObject != huntObjectList_.end(); mbyHuntObject++)
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        if (frame == falconer.getFrame())
         {
-            if(mbyHuntObject->expired())
+            LOG_DEBUG(logger_,"Frame is not displaced!");
+            continue;
+        }
+
+        for (auto mbyHuntObject                              = huntObjectList_.begin();
+             mbyHuntObject != huntObjectList_.end(); mbyHuntObject++)
+        {
+            if (mbyHuntObject->expired())
             {
                 removeExpiredObject(mbyHuntObject);
                 continue;
             }
             LOG_DEBUG(logger_, "Behave loop");
             auto huntObject = mbyHuntObject->lock();
-            for(auto const& behavior : huntObject->getBehaviors())
+            for (auto const& behavior : huntObject->getBehaviors())
             {
                 behavior->behave();
             }
             LOG_DEBUG(logger_, "On Update");
             huntObject->onUpdate();
         }
-        auto& falconer = Huntsman::getInstance().getFalconer();
-        std::list<const sf::Drawable*> drawablePtrList_;
-        for(auto mbyHuntObject = huntObjectList_.begin(); mbyHuntObject != huntObjectList_.end(); mbyHuntObject++)
+
+        std::list<std::shared_ptr<HuntObject>> drawableObjectList;
+        for (auto                              mbyHuntObject = huntObjectList_.begin();
+             mbyHuntObject != huntObjectList_.end(); mbyHuntObject++)
         {
-            if(mbyHuntObject->expired())
+            if (mbyHuntObject->expired())
             {
                 removeExpiredObject(mbyHuntObject);
                 continue;
             }
-            auto huntObject = mbyHuntObject->lock();
-            drawablePtrList_.push_back(&huntObject->getDrawable());
+            drawableObjectList.push_back(mbyHuntObject->lock());
         }
-        falconer.addToDraw(drawablePtrList_);
+        frame = falconer.addToDraw(drawableObjectList);
     }
 }
 

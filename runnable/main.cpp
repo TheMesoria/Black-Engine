@@ -36,7 +36,32 @@ int main(int argc, char** args)
         const std::pair<float, float>& getPosition() override { return {}; }
     };
 
+    class Gravity : public huntsman::Behavior
+    {
+    public:
+        Gravity(){};
+        void behave() override {  };
+    };
+
     Huntsman::getInstance().getFancier().add<GreenSquare>();
+
+    auto& falconer_ = Huntsman::getInstance().getFalconer();
+
+    while(Huntsman::getInstance().isRunning())
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        sf::Event event;
+        while (falconer_->pollEvent(event))
+        {
+            // Close window: exit
+            if (event.type == sf::Event::Closed)
+            {
+                LOG_CRIT(spdlog::get("main"),"Closing app!");
+                falconer_->close();
+            }
+        }
+    }
+
     //
     // spdlog::get("main")->info("Example Logging Method");
     // spdlog::get("main")->info("Example Logging Method {} {}", "with", "args");

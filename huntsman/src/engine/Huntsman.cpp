@@ -41,7 +41,7 @@ void Huntsman::run()
 {
     for (auto i = 0u; i < settings_->getHoundmasterAmount(); i++)
     {
-        houndmasterVector_.emplace_back(new Houndmaster);
+        houndmasterVector_.emplace_back(new Houndmaster(clock_));
         houndmasterThreadVector_
             .emplace_back(&Houndmaster::run, houndmasterVector_.back().get(), std::ref(isRunning_));
     }
@@ -88,6 +88,11 @@ void Huntsman::registerNewObject(std::shared_ptr<HuntObject>& huntObject)
     {
         houndmasterIterator_ = houndmasterVector_.begin();
     }
+}
+
+bool Huntsman::isRunning() const
+{
+    return isRunning_;
 }
 
 Huntsman Huntsman::huntsmanInstance;
