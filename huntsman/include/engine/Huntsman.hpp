@@ -6,6 +6,7 @@
 #pragma once
 
 #include <memory>
+#include <thread>
 
 #include <nlohmann/json.hpp>
 
@@ -13,6 +14,7 @@
 #include <engine/view/HuntingGround.hpp>
 #include <model/hunt/controller/Houndmaster.hpp>
 #include <engine/view/Falconer.hpp>
+#include "Fancier.hpp"
 #include <engine/Fancier.hpp>
 #include "engine/utility/SettingsFacade.hpp"
 
@@ -23,19 +25,25 @@ using json = nlohmann::json;
 class Huntsman
 {
     static Huntsman huntsmanInstance;
+    std::thread     runner_;
 
-    LoggerPtr                 logger_;
-    std::unique_ptr<Settings> settings_;
-    std::unique_ptr<Falconer> falconer_;
-    std::unique_ptr<Fancier>  fancier_;
-    std::vector<Houndmaster>  houndmasterVector_;
-
+    LoggerPtr                      logger_;
+    std::unique_ptr<Settings>      settings_;
+    std::unique_ptr<Falconer>      falconer_;
+    std::unique_ptr<Fancier>       fancier_;
     std::shared_ptr<HuntingGround> huntingGround;
+
+    std::vector<std::thread>                            houndmasterThreadVector_;
+    std::vector<std::shared_ptr<Houndmaster>>           houndmasterVector_;
+    std::vector<std::shared_ptr<Houndmaster>>::iterator houndmasterIterator_;
+
+    bool isRunning_ = true;
 public:
     static Huntsman& getInstance();
 
     void start();
     void start(std::string const& configPath);
+    void registerNewObject(std::shared_ptr<HuntObject>& huntObject);
 
     Fancier& getFancier()
     { return *fancier_; }
@@ -48,7 +56,7 @@ public:
 
 protected:
     Huntsman() = default;
-    ~Huntsman() = default;
+    ~Huntsman();
 
     void loadConfig(std::string const& configPath);
     void run();

@@ -6,6 +6,7 @@
 #include "engine/view/Falconer.hpp"
 
 #include <bitset>
+#include <list>
 
 #include <SFML/Graphics.hpp>
 
@@ -43,6 +44,36 @@ namespace huntsman::view
 sf::RenderWindow* Falconer::operator ->()
 {
 	return &*renderWindowPtr_;
+}
+
+void Falconer::addToDraw(std::list<const sf::Drawable*> drawable)
+{
+	std::lock_guard<std::mutex> lockGuard_(listAccessMutex_);
+	toDrawList_.merge(drawable);
+}
+
+void Falconer::run()
+{
+	sf::Event event;
+	while ((*this)->pollEvent(event))
+	{
+		// Close window: exit
+		if (event.type == sf::Event::Closed)
+		{
+			(*this)->close();
+		}
+	}
+	draw();
+}
+
+void Falconer::draw()
+{
+	std::lock_guard<std::mutex> lockGuard_(listAccessMutex_);
+	renderWindowPtr_->clear();
+	for(auto& elem : toDrawList_)
+	{
+		renderWindowPtr_->draw(*elem);
+	}
 }
 
 }

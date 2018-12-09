@@ -42,7 +42,7 @@
 	},
 	"falconer"      : {
 	  "window": {
-		"title"        : "Initialization successful!",
+		"title"        : "Example title.",
 		"size"         : {
 		  "width" : 680,
 		  "height": 400
@@ -60,7 +60,7 @@
 	  }
 	},
 	"hound-master"  : {
-	  "amount"     : 10,
+	  "amount"     : 2,
 	  "hound-count": 10
 	}
   }

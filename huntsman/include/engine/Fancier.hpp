@@ -22,11 +22,12 @@ using ObjectList = std::list<ObjectPtr>;
 using MapNode = std::pair<std::type_index, std::list<ObjectList::iterator>>;
 using ObjectMapping = std::unordered_map<std::type_index, std::list<ObjectList::iterator>>;
 
-
 class Fancier
 {
     ObjectList    hounds_;
     ObjectMapping objectMapping_;
+
+    ObjectList untrackedObjects_;
 
     LoggerPtr logger_;
 public:
@@ -49,6 +50,10 @@ public:
 
     template<class TYPE> bool remove(Predicate<TYPE> predicate);
 
+    std::shared_ptr<HuntObject> getUntrackedObject();
+
+    bool isUntracked()
+    { return not untrackedObjects_.empty(); };
 };
 
 template<class TYPE>
@@ -194,6 +199,8 @@ CastObjectPtr<TYPE> Fancier::add()
         objectMapping_.insert({typeid(TYPE), {}});
     }
     objectMapping_.at(typeid(TYPE)).push_back(--hounds_.end());
+
+    untrackedObjects_.push_back(*(--hounds_.end()));
 
     return std::static_pointer_cast<TYPE>(*(--hounds_.end()));
 }

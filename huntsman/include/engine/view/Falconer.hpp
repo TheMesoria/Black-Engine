@@ -6,6 +6,7 @@
 #pragma once
 
 #include <memory>
+#include <list>
 
 #include <SFML/Graphics.hpp>
 
@@ -18,12 +19,22 @@ class Falconer
 {
 private:
     std::unique_ptr<sf::RenderWindow> renderWindowPtr_;
-    LoggerPtr                         logger_;
+
+    std::list<const sf::Drawable*> toDrawList_;
+    std::mutex              listAccessMutex_;
+
+    LoggerPtr logger_;
 
 public:
     explicit Falconer(Settings const& settings);
 
+    void run();
+    void addToDraw(std::list<const sf::Drawable*> drawable);
+
     sf::RenderWindow* operator ->();
+
+private:
+    void draw();
 };
 }
 

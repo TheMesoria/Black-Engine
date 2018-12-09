@@ -79,12 +79,12 @@ std::pair<size_t, size_t> SettingsFacade::getHuntingGroundSize() const
 
 size_t SettingsFacade::getHoundmasterHoundCount() const
 {
-    return activeConfigFile_["engine-settings"]["hound-master"]["amount"].get<size_t>();
+    return activeConfigFile_["engine-settings"]["hound-master"]["hound-count"].get<size_t>();
 }
 
 size_t SettingsFacade::getHoundmasterAmount() const
 {
-    return activeConfigFile_["engine-settings"]["hound-master"]["hound-count"].get<size_t>();
+    return activeConfigFile_["engine-settings"]["hound-master"]["amount"].get<size_t>();
 }
 
 unsigned SettingsFacade::getWindowDepth() const

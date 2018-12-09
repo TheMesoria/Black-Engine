@@ -7,6 +7,7 @@
 #include <list>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <engine/Fancier.hpp>
 
 int main(int argc, char** args)
@@ -20,25 +21,25 @@ int main(int argc, char** args)
     std::wcerr << std::endl << std::endl;
 
     Huntsman::getInstance().start();
-    auto& huntsman = Huntsman::getInstance();
-    class HuntObjectWithGravity;
-    class Behavior{};
-    class Gravity : public Behavior {
+
+    class GreenSquare : public HuntObject
+    {
+        sf::RectangleShape rectangleShape_;
     public:
-        explicit Gravity(HuntingGround, HuntObjectWithGravity* ho) {};
+        GreenSquare() : rectangleShape_({30,30})
+        {
+            rectangleShape_.setPosition({50,50});
+            rectangleShape_.setFillColor(sf::Color::Green);
+        }
+        const sf::Drawable& getDrawable() override { return rectangleShape_; }
+        const std::pair<float, float>& getSize() override { return {}; }
+        const std::pair<float, float>& getPosition() override { return {}; }
     };
 
-    class HuntObjectWithGravity : public HuntObject{
-    public:
-        const sf::Drawable& getDrawable() override{ return sf::RectangleShape();}
-        const std::pair<float, float>& getSize() override{return {0.f,0.f};}
-        const std::pair<float, float>& getPosition() override{return {0.f,0.f};}
-        void addBehavior(Behavior* behavior);
-    };
-
-    auto huntObject = huntsman.getFancier().add<HuntObjectWithGravity>();
-    huntObject->addBehavior(new Gravity(huntsman.getHuntingGround(), &*huntObject));
-
+    Huntsman::getInstance().getFancier().add<GreenSquare>();
+    //
+    // spdlog::get("main")->info("Example Logging Method");
+    // spdlog::get("main")->info("Example Logging Method {} {}", "with", "args");
 
     return EXIT_SUCCESS;
 }

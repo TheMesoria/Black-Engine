@@ -34,27 +34,31 @@ void Huntsman::loadConfig(std::string const& configPath)
 void Huntsman::start(std::string const& configPath)
 {
     loadConfig(configPath);
-    run();
+    runner_ = std::thread(&Huntsman::run, this);
 }
 
 void Huntsman::run()
 {
+    for (auto i = 0u; i < settings_->getHoundmasterAmount(); i++)
+    {
+        houndmasterVector_.emplace_back(new Houndmaster);
+        houndmasterThreadVector_
+            .emplace_back(&Houndmaster::run, houndmasterVector_.back().get(), std::ref(isRunning_));
+    }
+    houndmasterIterator_ = houndmasterVector_.begin();
+
     // Start the game loop
     while ((*falconer_)->isOpen())
     {
-        // Process events
-        sf::Event event;
-        while ((*falconer_)->pollEvent(event))
+        while(fancier_->isUntracked())
         {
-            // Close window: exit
-            if (event.type == sf::Event::Closed)
-                (*falconer_)->close();
+            auto obj = fancier_->getUntrackedObject();
+            registerNewObject(obj);
         }
-        // Clear screen
-        (*falconer_)->clear();
-        // Update the window
-        (*falconer_)->display();
+
+        falconer_->run();
     }
+    isRunning_ = false;
 }
 
 void Huntsman::start()
@@ -65,6 +69,25 @@ void Huntsman::start()
 Huntsman& Huntsman::getInstance()
 {
     return huntsmanInstance;
+}
+
+Huntsman::~Huntsman()
+{
+    for (auto& houndMaster : houndmasterThreadVector_)
+    {
+        houndMaster.join();
+    }
+    runner_.join();
+}
+
+void Huntsman::registerNewObject(std::shared_ptr<HuntObject>& huntObject)
+{
+    houndmasterIterator_->get()->registerNewObject(huntObject);
+    houndmasterIterator_++;
+    if (houndmasterVector_.end() == houndmasterIterator_)
+    {
+        houndmasterIterator_ = houndmasterVector_.begin();
+    }
 }
 
 Huntsman Huntsman::huntsmanInstance;
