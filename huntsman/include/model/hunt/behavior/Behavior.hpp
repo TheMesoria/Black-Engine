@@ -4,8 +4,10 @@
 //
 #pragma once
 
+
 namespace huntsman
 {
+
 class Behavior
 {
 public:

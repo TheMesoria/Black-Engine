@@ -19,8 +19,8 @@ struct TestableHuntObject
     sf::RectangleShape drawable;
 
     const sf::Drawable& getDrawable() override { return drawable; }
-    const std::pair<float, float>& getSize() override { return {}; }
-    const std::pair<float, float>& getPosition() override { return {}; }
+    const std::pair<float, float> getSize() override { return {}; }
+    const std::pair<float, float> getPosition() override { return {}; }
 };
 
 class FancierShould
