@@ -34,7 +34,13 @@ void HuntingGround::createGrid(GridSize const& gridSize)
 
 bool CheckCollision(HuntObject* obj_1, HuntObject* obj_2)
 {
-    return true;
+    auto [obj_1X, obj_1Y] = obj_1->getPosition();
+    auto [obj_2X, obj_2Y] = obj_2->getPosition();
+
+    auto [obj_1sizeX, obj_1sizeY] = obj_1->getSize();
+    auto [obj_2sizeX, obj_2sizeY] = obj_2->getSize();
+
+
 }
 
 HuntObject* HuntingGround::verifyCollision(HuntObject* test)
@@ -42,12 +48,13 @@ HuntObject* HuntingGround::verifyCollision(HuntObject* test)
     auto[positionX, positionY]  = test->getPosition();
     auto[sizeX, sizeY]          = test->getSize();
 
-    int idX = static_cast<int>((int) positionX / this->gridChunkSize_),
-        idY = static_cast<int>((int) positionY / this->gridChunkSize_);
+    int idX = static_cast<int>((int) positionX / this->gridChunkSize_) + 1,
+        idY = static_cast<int>((int) positionY / this->gridChunkSize_) + 1;
 
     // Collision occurs with map border
     if (idX == 0 || idY == 0)
     {
+        assert(false && "Object out of the bounds!");
         return nullptr;
     }
 
@@ -87,10 +94,13 @@ void HuntingGround::moveHuntObject(std::shared_ptr<HuntObject>& obj, std::pair<f
     if (pop(obj))
     {
         auto[positionX, positionY] = obj->getPosition();
-        obj->setPosition({positionX + vector.first, positionY + vector.second});
-        if(verifyCollision(&*obj) != nullptr)
+        obj->setPosition({positionX - vector.first, positionY - vector.second});
+
+        if (verifyCollision(&*obj) != nullptr)
         {
-            obj->setPosition({positionX - vector.first, positionY - vector.second});
+            auto [positionX, positionY] = obj->getPosition();
+            LOG_DEBUG(logger_, "Object Collided!");
+            obj->setPosition({positionX + vector.first, positionY + vector.second});
         }
 
         add(obj);
@@ -106,8 +116,10 @@ void HuntingGround::add(std::shared_ptr<HuntObject>& obj)
 {
     auto[positionX, positionY] = obj->getPosition();
 
-    int idX = static_cast<int>((int) positionX / this->gridChunkSize_),
-        idY = static_cast<int>((int) positionY / this->gridChunkSize_);
+    auto idX = static_cast<int>((int) positionX / this->gridChunkSize_) + 1,
+         idY = static_cast<int>((int) positionY / this->gridChunkSize_) + 1;
+
+    LOG_DEBUG_F(logger_, "Registering object on hunting ground [{},{}]", positionX, positionY);
 
     auto& chunk = grid_[idX][idY];
 
@@ -118,8 +130,8 @@ bool HuntingGround::pop(std::shared_ptr<HuntObject>& obj)
 {
     auto[positionX, positionY] = obj->getPosition();
 
-    int idX = static_cast<int>((int) positionX / this->gridChunkSize_),
-        idY = static_cast<int>((int) positionY / this->gridChunkSize_);
+    int idX = static_cast<int>((int) positionX / this->gridChunkSize_) + 1,
+        idY = static_cast<int>((int) positionY / this->gridChunkSize_) + 1;
 
     auto& chunk = grid_[idX][idY];
 

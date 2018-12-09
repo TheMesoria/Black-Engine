@@ -72,7 +72,7 @@ int main(int argc, char** args)
 
             auto obj = targetObject_.lock();
 
-            huntingGround_.moveHuntObject(obj,{0,5});
+            huntingGround_.moveHuntObject(obj,{0,-5});
         };
     };
 

@@ -50,10 +50,11 @@ void Huntsman::run()
     // Start the game loop
     while ((*falconer_)->isOpen())
     {
-        while(fancier_->isUntracked())
+        while (fancier_->isUntracked())
         {
             auto obj = fancier_->getUntrackedObject();
             registerNewObject(obj);
+            huntingGround->add(obj);
         }
 
         falconer_->run();

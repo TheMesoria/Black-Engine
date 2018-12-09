@@ -30,13 +30,11 @@ void huntsman::controller::Houndmaster::run(bool const& isRunning)
                 removeExpiredObject(mbyHuntObject);
                 continue;
             }
-            LOG_DEBUG(logger_, "Behave loop");
             auto huntObject = mbyHuntObject->lock();
             for (auto const& behavior : huntObject->getBehaviors())
             {
                 behavior->behave();
             }
-            LOG_DEBUG(logger_, "On Update");
             huntObject->onUpdate();
         }
 
