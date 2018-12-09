@@ -74,7 +74,7 @@ int main(int argc, char** args)
     };
 
     auto elem = Huntsman::getInstance().getFancier().add<GreenSquare>();
-    // elem->addBehavior({new Gravity()})
+    elem->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem,5.f)));
 
     auto& falconer_ = Huntsman::getInstance().getFalconer();
 
