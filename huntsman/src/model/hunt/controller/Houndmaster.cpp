@@ -15,10 +15,10 @@ void huntsman::controller::Houndmaster::run(bool const& isRunning)
     auto frame = falconer.getFrame();
     while (isRunning)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        std::this_thread::sleep_for(std::chrono::milliseconds(75));
         if (frame == falconer.getFrame())
         {
-            LOG_DEBUG(logger_, "Frame is not displaced!");
+            LOG_CRIT(logger_, "Frame is not displaced!");
             continue;
         }
 

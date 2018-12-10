@@ -44,8 +44,8 @@
 	  "window": {
 		"title"        : "Example title.",
 		"size"         : {
-		  "width" : 680,
-		  "height": 400
+		  "width" : 900,
+		  "height": 900
 		},
 		"style"        : [
 		  "Default"

@@ -34,34 +34,25 @@ int main(int argc, char** args)
             rectangleShape_.setFillColor(sf::Color::Green);
         }
 
-        const sf::Drawable& getDrawable() override
-        { return rectangleShape_; }
-
-        const std::pair<float, float> getSize() override
-        { return {rectangleShape_.getSize().x, rectangleShape_.getSize().y}; }
-
-        const std::pair<float, float> getPosition() override
-        { return {rectangleShape_.getPosition().x, rectangleShape_.getPosition().y}; }
-
-        void setPosition(std::pair<float, float> const& arg) override
-        { rectangleShape_.setPosition({arg.first, arg.second}); }
-
-        void setSize(std::pair<float, float> const& arg) override
-        { rectangleShape_.setSize({arg.first, arg.second}); }
+        const sf::Drawable& getDrawable() override{ return rectangleShape_; }
+        const std::pair<float, float> getSize() override{ return {rectangleShape_.getSize().x, rectangleShape_.getSize().y}; }
+        const std::pair<float, float> getPosition() override { return {rectangleShape_.getPosition().x, rectangleShape_.getPosition().y}; }
+        void setPosition(std::pair<float, float> const& arg) override { rectangleShape_.setPosition({arg.first, arg.second}); }
+        void setSize(std::pair<float, float> const& arg) override { rectangleShape_.setSize({arg.first, arg.second}); }
     };
 
     class Gravity : public huntsman::Behavior
     {
         std::weak_ptr<HuntObject> targetObject_;
-        HuntingGround & huntingGround_;
+        HuntingGround& huntingGround_;
         sf::Clock clock;
-        float speed_;
+        float     speed_;
     public:
         Gravity(std::shared_ptr<HuntObject> ho, HuntingGround& hg, float speed)
             : huntingGround_(hg)
         {
-            targetObject_  = ho;
-            speed_         = speed;
+            targetObject_ = ho;
+            speed_        = speed;
             clock.restart();
         };
 
@@ -74,17 +65,45 @@ int main(int argc, char** args)
 
             auto obj = targetObject_.lock();
 
-            huntingGround_.moveHuntObject(obj,{0,-speed_*clock.restart().asSeconds()});
+            huntingGround_.moveHuntObject(obj, {0, -speed_ * clock.restart().asSeconds()});
         };
     };
 
     auto elem  = Huntsman::getInstance().getFancier().add<GreenSquare>();
     auto elem2 = Huntsman::getInstance().getFancier().add<GreenSquare>();
-    elem2->setSize({500, 50});
-    elem2->setPosition({0, 500});
-    elem->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem, Huntsman::getInstance().getHuntingGround(), 50.f)));
+    // auto elem3 = Huntsman::getInstance().getFancier().add<GreenSquare>();
+    elem2->setSize({1000, 50});
+    elem2->setPosition({0, 700});
+    // elem3->setPosition({150, 50});
+    elem->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem, Huntsman::getInstance()
+        .getHuntingGround(), 50.f)));
+    // elem3->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem3, Huntsman::getInstance()
+    //     .getHuntingGround(), 25.f)));
 
     auto& falconer_ = Huntsman::getInstance().getFalconer();
+
+    class SfmlLogo : public HuntObject
+    {
+        sf::Texture texture;
+        sf::Sprite sprite;
+    public:
+        SfmlLogo()
+        {
+            texture.loadFromFile("/home/black/Pictures/sfml.png");
+            sprite.setTexture(texture,true);
+            sprite.setPosition(300,300);
+            sprite.setScale(0.3,0.3);
+        }
+        const sf::Drawable& getDrawable() override{return sprite;}
+        const std::pair<float, float> getSize() override{return std::pair<float, float>();}
+        void setSize(std::pair<float, float> const& pair) override{}
+        const std::pair<float, float> getPosition() override{return std::pair<float, float>();}
+        void setPosition(std::pair<float, float> const& pair) override {}
+    };
+
+    auto elem3 = Huntsman::getInstance().getFancier().add<SfmlLogo>();
+
+    auto x = std::shared_ptr<HuntObject>(elem);
 
     while (Huntsman::getInstance().isRunning())
     {
@@ -98,6 +117,23 @@ int main(int argc, char** args)
                 LOG_CRIT(spdlog::get("main"), "Closing app!");
                 falconer_->close();
             }
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {5, 0});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {-5, 0});
+        }
+        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        // {
+        //     Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {0, 5});
+        // }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+            Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {0, -5});
         }
     }
 

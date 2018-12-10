@@ -4,8 +4,8 @@
 //
 
 #include <gtest/gtest.h>
-#include <engine/Fancier.hpp>
 #include <model/hunt/HuntObject.hpp>
+#include <engine/Fancier.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <memory>
 #include "../../COMMON/TestBase.hpp"
@@ -21,6 +21,8 @@ struct TestableHuntObject
     const sf::Drawable& getDrawable() override { return drawable; }
     const std::pair<float, float> getSize() override { return {}; }
     const std::pair<float, float> getPosition() override { return {}; }
+    void setSize(std::pair<float, float> const& pair) override {}
+    void setPosition(std::pair<float, float> const& pair) override{}
 };
 
 class FancierShould

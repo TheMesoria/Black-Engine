@@ -51,7 +51,7 @@ bool CheckCollision(HuntObject* obj_1, HuntObject* obj_2)
             return true;
         }
     }
-    else if( obj_1Y  < (obj_2Y+obj_2sizeY) && obj_1Y > obj_2Y )
+    else if (obj_1Y < (obj_2Y + obj_2sizeY) && obj_1Y > obj_2Y)
     {
         if ((obj_1X + obj_1sizeX) > obj_2X && obj_1X < obj_2X)
         {
@@ -97,6 +97,12 @@ HuntObject* HuntingGround::verifyCollision(HuntObject* test)
                 continue;
             }
             auto activeObj = obj.lock();
+            LOG_DEBUG_F(logger_
+                        , "Compare: [{},{}] with [{},{}]"
+                        , activeObj->getPosition().first
+                        , activeObj->getPosition().second
+                        , test->getPosition().first
+                        , test->getPosition().second);
             if (CheckCollision(test, &*activeObj))
             {
                 return &*activeObj;
