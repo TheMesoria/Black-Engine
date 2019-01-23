@@ -34,11 +34,20 @@ int main(int argc, char** args)
             rectangleShape_.setFillColor(sf::Color::Green);
         }
 
-        const sf::Drawable& getDrawable() override{ return rectangleShape_; }
-        const std::pair<float, float> getSize() override{ return {rectangleShape_.getSize().x, rectangleShape_.getSize().y}; }
-        const std::pair<float, float> getPosition() override { return {rectangleShape_.getPosition().x, rectangleShape_.getPosition().y}; }
-        void setPosition(std::pair<float, float> const& arg) override { rectangleShape_.setPosition({arg.first, arg.second}); }
-        void setSize(std::pair<float, float> const& arg) override { rectangleShape_.setSize({arg.first, arg.second}); }
+        const sf::Drawable& getDrawable() override
+        { return rectangleShape_; }
+
+        const std::pair<float, float> getSize() override
+        { return {rectangleShape_.getSize().x, rectangleShape_.getSize().y}; }
+
+        const std::pair<float, float> getPosition() override
+        { return {rectangleShape_.getPosition().x, rectangleShape_.getPosition().y}; }
+
+        void setPosition(std::pair<float, float> const& arg) override
+        { rectangleShape_.setPosition({arg.first, arg.second}); }
+
+        void setSize(std::pair<float, float> const& arg) override
+        { rectangleShape_.setSize({arg.first, arg.second}); }
     };
 
     class Gravity : public huntsman::Behavior
@@ -69,13 +78,37 @@ int main(int argc, char** args)
         };
     };
 
+    class PlayOntouchBehavior : public huntsman::Behavior
+    {
+        sf::Music music;
+        HuntingGround& hg_;
+        std::shared_ptr<HuntObject> ho_;
+    public:
+        PlayOntouchBehavior(std::shared_ptr<HuntObject> ho, HuntingGround& hg, float speed)
+        : hg_(hg), ho_(ho)
+        {
+            if(!music.openFromFile("/home/black/Music/EndOfTheRoad.wav"))
+            {
+                assert(false);
+            }
+
+        }
+        void behave()
+        {
+            if(hg_.verifyCollision(&*ho_)!= nullptr)
+            {
+                music.play();
+            }
+        }
+    };
+
     auto elem  = Huntsman::getInstance().getFancier().add<GreenSquare>();
     auto elem2 = Huntsman::getInstance().getFancier().add<GreenSquare>();
     // auto elem3 = Huntsman::getInstance().getFancier().add<GreenSquare>();
     elem2->setSize({1000, 50});
     elem2->setPosition({0, 700});
     // elem3->setPosition({150, 50});
-    elem->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem, Huntsman::getInstance()
+    elem->addBehavior(std::shared_ptr<huntsman::Behavior>(new PlayOntouchBehavior(elem, Huntsman::getInstance()
         .getHuntingGround(), 50.f)));
     // elem3->addBehavior(std::shared_ptr<huntsman::Behavior>(new Gravity(elem3, Huntsman::getInstance()
     //     .getHuntingGround(), 25.f)));
@@ -85,20 +118,30 @@ int main(int argc, char** args)
     class SfmlLogo : public HuntObject
     {
         sf::Texture texture;
-        sf::Sprite sprite;
+        sf::Sprite  sprite;
     public:
         SfmlLogo()
         {
             texture.loadFromFile("/home/black/Pictures/sfml.png");
-            sprite.setTexture(texture,true);
-            sprite.setPosition(300,300);
-            sprite.setScale(0.3,0.3);
+            sprite.setTexture(texture, true);
+            sprite.setPosition(300, 300);
+            sprite.setScale(0.3, 0.3);
         }
-        const sf::Drawable& getDrawable() override{return sprite;}
-        const std::pair<float, float> getSize() override{return std::pair<float, float>();}
-        void setSize(std::pair<float, float> const& pair) override{}
-        const std::pair<float, float> getPosition() override{return std::pair<float, float>();}
-        void setPosition(std::pair<float, float> const& pair) override {}
+
+        const sf::Drawable& getDrawable() override
+        { return sprite; }
+
+        const std::pair<float, float> getSize() override
+        { return std::pair<float, float>(); }
+
+        void setSize(std::pair<float, float> const& pair) override
+        {}
+
+        const std::pair<float, float> getPosition() override
+        { return std::pair<float, float>(); }
+
+        void setPosition(std::pair<float, float> const& pair) override
+        {}
     };
 
     auto elem3 = Huntsman::getInstance().getFancier().add<SfmlLogo>();
@@ -127,10 +170,10 @@ int main(int argc, char** args)
         {
             Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {-5, 0});
         }
-        // if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        // {
-        //     Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {0, 5});
-        // }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+            Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {0, 5});
+        }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
             Huntsman::getInstance().getHuntingGround().moveHuntObject(x, {0, -5});
